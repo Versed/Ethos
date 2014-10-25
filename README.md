@@ -1,4 +1,4 @@
 Ethos
 =====
 
-Find your element.
+Find your element.  Pre-professional development through projected ethos
