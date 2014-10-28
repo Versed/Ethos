@@ -1,61 +1,70 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Ethos</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <div class="wrapper">
-    <div class="main">
-      <nav class="top-bar">
-        <ul class="title-area">
-          <li class="name">
-            <h1><a href="">Ehtos</a></h1>
-          </li>
-          <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
-        </ul>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <section class="top-bar-section">
-          <ul class="left">
-            <li class="divider"></li>
-            <li><%= link_to "Home", ideaboards_path %></li>
-            <li class="divider"></li>
-            <li><%= link_to "Campus Connects", users_path %></li>
-            <li class="divider"></li>
-            <li><%= link_to "Messages", messages_path(@user) %></li>
-            <li class="divider"></li>
+    <title>Ethos</title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="main">
+        <nav class="top-bar">
+          <ul class="title-area">
+            <li class="name">
+              <h1><a href="">Ethos</a></h1>
+            </li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
           </ul>
 
-          <ul class="right">
-            <li class="avatar has-dropdown">
-                <%= link_to "Profile <IMG> HasDropdown", profile_path %>
-                <ul class="dropdown">
-                    <li><%= link_to settings_path(@user) %></li>
-                </ul>
-            </li>
-            <li class="has-form">
-              <%= link_to "Log out", logout_path, class: "button" %>
-            </li>
-          </ul>
+          <section class="top-bar-section">
+            <ul class="left">
+              <li class="divider"></li>
+              <li><%= link_to "Home", ideaboards_path %></li>
+              <li class="divider"></li>
+              <!-- <li>link_to "Campus Connects", users_path </li> -->
+              <li class="divider"></li>
+              <!-- <li>link_to "Messages", messages_path(@user)</li> -->
+              <li class="divider"></li>
+            </ul>
 
-          <ul class="right">
-            <li class="has-form">
-              <%= link_to "Log in", login_path, class: "button" %>
-            </li>
-        </section>
-      </nav>
+            <ul class="right">
+              <li class="avatar has-dropdown">
+                  <!-- link_to "Profile <IMG> HasDropdown", profile_path -->
+                  <ul class="dropdown">
+                      <!-- <li>link_to settings_path(@user)</li> -->
+                  </ul>
+              </li>
+              <li class="has-form">
+              <!-- link_to "Log out", destroy_user_session, class: "button"  -->
+              </li>
+            </ul>
 
-      <%= yield %>
+            <ul class="right">
+              <li class="has-form">
+                <!-- link_to "Log in", user_session, class: "button" -->
+              </li>
+          </section>
+        </nav>
+
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+
+        <%= yield %>
+      </div>
     </div>
-  </div>
-  <footer>
-    <ul class="inline-list">
-      <li><%= link_to "Home", ideaboards_path %></li>
-      <li><%= link_to "Connects", users_path %></li>
-      <li><%= link_to "Portfolio", profile_path %></li>
-    </ul>
-  </footer>
-</body>
+    <footer>
+      <ul class="inline-list">
+        <li><%= link_to "Home", ideaboards_path %></li>
+        <!-- <li>link_to "Connects", users_path </li> -->
+        <!-- <li>link_to "Portfolio", profile_path </li> -->
+      </ul>
+    </footer>
+    <%= javascript_include_tag "application" %>
+  </body>
 </html>
