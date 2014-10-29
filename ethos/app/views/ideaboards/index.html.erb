@@ -1,3 +1,31 @@
-<% @ideaboards.each do |ideaboard| %>
-  <%= ideaboard.title %>, <%= ideaboard.user %>, <%= ideaboard.description %>
-<% end %>
+<div class="row">
+  <% @ideaboards.each do |ideaboard| %>
+    <div class="large-4 columns">
+      <div class="featured-idea">
+        <div class="row author">
+          <div class="larege-4 small-4 columns">
+            <%= link_to "#{ideaboard.user.full_name}", edit_user_registration_path %>
+          </div>
+        </div>
+        <%= link_to "#{ideaboard.title}", ideaboard_path(ideaboard) %>
+        <p class="description"><%= ideaboard.description %>
+
+        <hr>
+        <div class="like">
+          <a>Like</a>
+          <!-- <a>Unlike</a> -->
+        </div>
+        <div class="row detail">
+          <div class="large-4 columns">0 Likes</div>
+        </div>
+        <div class="row detail">
+          <div class="large-12 columns">
+            <div class="skills-needed">Skills needed:
+              <a> Programming </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
