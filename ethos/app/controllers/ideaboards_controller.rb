@@ -12,7 +12,7 @@ class IdeaboardsController < ApplicationController
   end
 
   def create
-    @ideaboard = Ideaboard.new(ideaboard_params)
+    @ideaboard = current_user.ideaboards.build(ideaboard_params)
 
     if @ideaboard.save
       redirect_to @ideaboard
