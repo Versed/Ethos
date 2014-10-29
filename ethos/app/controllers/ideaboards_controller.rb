@@ -1,5 +1,5 @@
 class IdeaboardsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
 
   def index
     @ideaboards = Ideaboard.all
@@ -20,6 +20,18 @@ class IdeaboardsController < ApplicationController
       redirect_to @ideaboard
     else
       render 'new'
+    end
+  end
+
+  def edit
+    @ideaboard = Ideaboard.find(params[:id])
+  end
+
+  def update
+    if @ideaboard.update(ideaboard_params)
+      redirect_to @ideaboard
+    else
+      render 'edit'
     end
   end
 

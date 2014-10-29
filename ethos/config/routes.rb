@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   root to: 'ideaboards#index'
 
   resources :ideaboards
+  get '/:id', to: 'profiles#show'
 end
