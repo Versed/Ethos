@@ -1,1 +1,3 @@
-ideaboards
+<% @ideaboards.each do |ideaboard| %>
+  <%= ideaboard.title %>, <%= ideaboard.user %>, <%= ideaboard.description %>
+<% end %>

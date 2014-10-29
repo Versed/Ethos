@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="large-6 columns large-centered">
+    <%= simple_form_for(@ideaboard) do |f| %>
+      <% if @ideaboard.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@ideaboard.errors.count, "error") %> prohibited this ideaboard from being saved:</h2>
+
+          <ul>
+          <% @ideaboard.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= f.input :user_id, collection: User.all, label_method: :full_name %>
+      <%= f.input :title %>
+      <%= f.input :description %>
+      <%= f.submit class: 'button'%>
+    <% end %>
+  </end>
+</div>
