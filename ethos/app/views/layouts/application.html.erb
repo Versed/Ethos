@@ -34,26 +34,30 @@
             </ul>
 
             <ul class="right">
-              <li class="avatar has-dropdown">
-                  <!-- link_to "Profile <IMG> HasDropdown", profile_path -->
+              <% if user_signed_in? %>
+                <li class="avatar has-dropdown">
+                  <%= link_to "Profile <IMG> HasDropdown", edit_user_registration_path %>
                   <ul class="dropdown">
                       <!-- <li>link_to settings_path(@user)</li> -->
                   </ul>
-              </li>
-              <li class="has-form">
-              <!-- link_to "Log out", destroy_user_session, class: "button"  -->
-              </li>
-            </ul>
+                </li>
+                <li class="has-form">
+                  <%= link_to "Log out", destroy_user_session_path, class: "button", method: :delete %>
+                </li>
 
-            <ul class="right">
-              <li class="has-form">
-                <!-- link_to "Log in", user_session, class: "button" -->
-              </li>
+              <% else %>
+                <li class="has-form">
+                  <%= link_to "Log in", new_user_session_path, class: "button" %>
+                </li>
+              <% end %>
+            </ul>
           </section>
         </nav>
 
-        <p class="alert-box info"><%= notice %></p>
-        <p class="alert-box alert"><%= alert %></p>
+        <div class="row">
+          <p class="alert-box info large-12 columns"><%= notice %></p>
+          <p class="alert-box alert large-12 columns"><%= alert %></p>
+        </div>
 
         <%= yield %>
       </div>
