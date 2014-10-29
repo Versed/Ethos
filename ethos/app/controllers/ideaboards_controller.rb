@@ -1,4 +1,6 @@
 class IdeaboardsController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
     @ideaboards = Ideaboard.all
   end
