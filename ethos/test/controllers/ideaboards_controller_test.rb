@@ -23,11 +23,11 @@ class IdeaboardsControllerTest < ActionController::TestCase
   sign_in users(:nathan)
 
   assert_difference('Ideaboard.count') do
-    post :create, ideaboard: { title: "Test", description: "testing" }
+    post :create, ideaboard: { title: "Test", description: "testing", user_id: users(:joe).id }
   end
 
-  assert_response :success
   assert_redirected_to ideaboard_path(assigns(:idea))
+  assert_equal assigns(:ideaboard).user_id, users(:nathan).id
  end
 
  test "should get edit when logged in" do

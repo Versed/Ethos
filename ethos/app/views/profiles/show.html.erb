@@ -1,3 +1,7 @@
-
-profile
 <%= @user.full_name %>
+<%= link_to "Connect", new_user_friendship_path(friend_id: @user), class: "button" %>
+
+<% @user.ideaboards.each do |ideaboard| %>
+  <%= ideaboard.title %>
+<% end %>
+

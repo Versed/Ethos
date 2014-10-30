@@ -14,7 +14,7 @@ class IdeaboardsController < ApplicationController
   end
 
   def create
-    @ideaboard = current_user.ideaboards.build(ideaboard_params)
+    @ideaboard = current_user.ideaboards.new(ideaboard_params)
 
     if @ideaboard.save
       redirect_to @ideaboard
@@ -28,6 +28,11 @@ class IdeaboardsController < ApplicationController
   end
 
   def update
+    @ideaboard = current_user.ideaboards.find(ideaboard_params)
+    if params[:ideaboard] && params[:ideaboard].has_key?(:user_id)
+      params[:ideaboard].delete(:user_id)
+    end
+
     if @ideaboard.update(ideaboard_params)
       redirect_to @ideaboard
     else

@@ -4,7 +4,10 @@
       <div class="featured-idea">
         <div class="row author">
           <div class="larege-4 small-4 columns">
-            <%= link_to "#{ideaboard.user.full_name}", edit_user_registration_path %>
+            <%= link_to profile_path(ideaboard.user) do %>
+              <%= ideaboard.user.full_name %>
+              <%= image_tag(ideaboard.user.avatar) %>
+            <% end %>
           </div>
         </div>
         <%= link_to "#{ideaboard.title}", ideaboard_path(ideaboard) %>
