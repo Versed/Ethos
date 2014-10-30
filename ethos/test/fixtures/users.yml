@@ -3,3 +3,18 @@ nathan:
   last_name: "Kluth"
   email: "nlkluth@gmail.com"
   encrypted_password: "password"
+  username: "nlkluth"
+
+joe:
+  first_name: "Joe"
+  last_name: "Doe"
+  email: "test@example.com"
+  encrypted_password: "password"
+  username: "joe"
+
+mike:
+  first_name: "Mike"
+  last_name: "Bluth"
+  email: "mbluth233@hotmail.com"
+  encrypted_password: "passwordistaco"
+  username: "bluthybluth"
