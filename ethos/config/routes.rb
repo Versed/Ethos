@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users
-  devise_scope :user do
-    get 'register', to: 'devise/registrations#new', as: :register
-    get 'login', to: 'devise/sessions#new', as: :login
+  as :user do
+    get '/register', to: 'devise/registrations#new', as: :register
+    get '/login', to: 'devise/sessions#new', as: :login
+  end
+
+  devise_for :users, skip: [:sessions]
+
+  as :user do
+    get "/login" => 'devise/sessions#new', as: :new_user_session
+    post "/login" => 'devise/sessions#create', as: :user_session
   end
 
   root to: 'ideaboards#index'
