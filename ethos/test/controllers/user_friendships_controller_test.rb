@@ -1,6 +1,48 @@
 require 'test_helper'
 
 class UserFriendshipsControllerTest < ActionController::TestCase
+  context "#index" do
+    context "when not logged in" do
+      should "redirect to the login page" do
+        get :index
+        assert_response :redirect
+      end
+    end
+
+    context "when logged in" do
+      setup do
+        @friendship1 = create(:pending_user_friendship, user: users(:nathan), friend: create(:user, first_name: 'Pending', last_name: 'Friend'))
+        @friendship2 = create(:accepted_user_friendship, user: users(:nathan), friend: create(:user, first_name: 'Active', last_name: 'Friend'))
+
+        sign_in users(:nathan)
+        get :index
+      end
+
+      should "get the index page" do
+        assert_response :success
+      end
+
+      should "assign user_friendships" do
+        assert assigns(:user_friendships)
+
+        assert_match  /Pending/, response.body
+        assert_match /Active/, response.body
+      end
+
+      should "display pending information on pending friendship" do
+        assert_select "#user_friendship_#{@friendship1.id}" do
+          assert_select "em", "Friendship is pending."
+        end
+      end
+
+       should "display date information on pending friendship" do
+        assert_select "#user_friendship_#{@friendship2.id}" do
+          assert_select "em", "Friendship started #{@friendship2.updated_at}"
+        end
+      end
+    end
+  end
+
   context "#new" do
     context "when not logged in" do
       should "redirect to the login page" do
@@ -82,7 +124,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
         assert_equal users(:nathan), assigns(:user_friendship).user
         assert_equal users(:mike), assigns(:user_friendship).friend
 
-        assert users(:nathan).friends.include?(users(:mike))
+        assert users(:nathan).pending_friends.include?(users(:mike))
         assert_response :redirect
         assert_redirected_to profile_path(users(:mike))
         assert flash[:success]
