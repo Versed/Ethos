@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :ideaboards
   resources :user_friendships do
     member do
-      put :accept, id: 1
+      put :accept
     end
   end
 

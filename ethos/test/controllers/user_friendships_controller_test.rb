@@ -116,6 +116,14 @@ class UserFriendshipsControllerTest < ActionController::TestCase
         assert_redirected_to root_path
       end
 
+      context "successfully" do
+        should "create two friendships" do
+          assert_difference 'UserFriendship.count', 2 do
+            post :create, user_friendship: { friend_id: users(:mike).profile_name }
+          end
+        end
+      end
+
       should "create friendship with friend id" do
         post :create, user_friendship: { friend_id: users(:mike) }
         assert assigns(:friend)
@@ -128,8 +136,35 @@ class UserFriendshipsControllerTest < ActionController::TestCase
         assert_response :redirect
         assert_redirected_to profile_path(users(:mike))
         assert flash[:success]
-        assert_equal "You are now friends with #{users(:mike).full_name}", flash[:success]
+        assert_equal "Friend request sent.", flash[:success]
       end
+    end
+  end
+
+  context "#mutual_friendship!" do
+    setup do
+      UserFriendship.request users(:nathan), users(:joe)
+      @friendship1 = users(:nathan).user_friendships.where(friend_id: users(:joe).id).first
+      @friendship2 = users(:joe).user_friendships.where(friend_id: users(:nathan).id).first
+    end
+
+    should "find mutual friendship" do
+      assert_equal @friendship2, @friendship1.mutual_friendship
+    end
+  end
+
+  context "#accept_mutual_friendship!" do
+    setup do
+      UserFriendship.request users(:nathan), users(:joe)
+    end
+
+    should "accept mutual friendship" do
+      friendship1 = users(:nathan).user_friendships.where(friend_id: users(:joe).id).first
+      friendship2 = users(:joe).user_friendships.where(friend_id: users(:nathan).id).first
+
+      friendship1.accept_mutual_friendship!
+      friendship2.reload
+      assert_equal 'accepted', friendship2.state
     end
   end
 
