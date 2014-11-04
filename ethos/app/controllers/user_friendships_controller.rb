@@ -47,6 +47,16 @@ class UserFriendshipsController < ApplicationController
     @friend = @user_friendship.friend
   end
 
+  def destroy
+    @user_friendship = current_user.user_friendships.find(params[:id])
+    if @user_friendship.destroy
+      flash[:success] = "Friendship destroyed"
+    else
+      flash[:error] "Could not remove friendship"
+    end
+    redirect_to user_friendships_path
+  end
+
   def record_not_found
     render file: 'public/404', status: :not_found
   end

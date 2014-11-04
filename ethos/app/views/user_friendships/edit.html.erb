@@ -4,10 +4,20 @@ Viewing friendship
   <h3> Do you really want to be friends with <%= @friend.first_name %>?</h3>
 <% end %>
 
+<% if @user_friendship.accepted? %>
+  <h3> You are friends with <%= @friend.first_name %></h3>
+<% end>
+
 <% if @user_friendship.requested? %>
   <%= simple_form_form @user_friendship, url: accept_user_friendship_path(@user_friendship), method:
     :put do |form| %>
 
     <%= form.submit "Accept friendship", class: "button" %>
   <% end %>
+<% end %>
+
+<%= simple_form_form @user_friendship, url: accept_user_friendship_path(@user_friendship), method:
+  :delete do |form| %>
+
+  <%= form.submit "Delete friendship", class: "button" %>
 <% end %>
