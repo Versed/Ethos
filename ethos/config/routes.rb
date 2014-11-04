@@ -14,6 +14,11 @@ Rails.application.routes.draw do
   root to: 'ideaboards#index'
 
   resources :ideaboards
-  resources :user_friendships
+  resources :user_friendships do
+    member do
+      put :accept, id: 1
+    end
+  end
+
   get '/:id', to: 'profiles#show', as: 'profile'
 end
