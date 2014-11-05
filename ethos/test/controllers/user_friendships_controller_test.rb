@@ -119,7 +119,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
       context "successfully" do
         should "create two friendships" do
           assert_difference 'UserFriendship.count', 2 do
-            post :create, user_friendship: { friend_id: users(:mike).profile_name }
+            post :create, user_friendship: { friend_id: users(:mike).username }
           end
         end
       end

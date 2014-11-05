@@ -28,7 +28,7 @@ class UserFriendshipsController < ApplicationController
 
   def create
     if params[:user_friendship] && params[:user_friendship].has_key?(:friend_id)
-      @friend = User.where(profile_name: params[:user_friendship][:friend_id]).first
+      @friend = User.where(username: params[:user_friendship][:friend_id]).first
       @user_friendship = UserFriendship.request(current_user, @friend)
 
       respond_to do |format|
@@ -64,7 +64,7 @@ class UserFriendshipsController < ApplicationController
     if @user_friendship.destroy
       flash[:success] = "Friendship destroyed"
     else
-      flash[:error] "Could not remove friendship"
+      flash[:error] = "Could not remove friendship"
     end
     redirect_to user_friendships_path
   end
