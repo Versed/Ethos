@@ -1,5 +1,14 @@
 <%= @user.full_name %>
-<%= link_to "Connect", new_user_friendship_path(friend_id: @user), class: "button" %>
+
+<% if signed_in? %>
+  <div id="friend-status">
+    <% if current_user.friends.include?(@user) %>
+      <%= link_to "Edit Friendship", edit_user_friendship_path(friend_id: @user), class: "button" %>
+    <% else %>
+      <%= link_to "Connect", new_user_friendship_path(friend_id: @user), class: "button" %>
+    <% end %>
+  </div>
+<% end %>
 
 <% @user.ideaboards.each do |ideaboard| %>
   <%= ideaboard.title %>
