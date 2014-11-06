@@ -88,7 +88,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 
       should "ask if you really want to request friendship" do
         get :new, friend_id: users(:joe)
-        assert_match /Do you really want to friend #{useres(:jim).full_name}?/, response.body
+        assert_match /Do you really want to friend #{users(:joe).full_name}?/, response.body
       end
 
       should "call to_param on user returns profile name" do

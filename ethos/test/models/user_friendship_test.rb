@@ -44,7 +44,7 @@ class UserFriendshipTest < ActiveSupport::TestCase
 
     should "set the state to accepted" do
       @user_friendship.accept!
-      assert_equal "accepted", @user_friendship.sate
+      assert_equal "accepted", @user_friendship.state
     end
 
     should "send an acceptance email" do
@@ -73,7 +73,7 @@ class UserFriendshipTest < ActiveSupport::TestCase
     end
 
     should "send a friend request email" do
-      assert_difference 'ActionMailer.deliveries.size', 1 do
+      assert_difference 'ActionMailer::Base.deliveries.size', 1 do
         UserFriendship.request(users(:nathan), users(:mike))
       end
     end
