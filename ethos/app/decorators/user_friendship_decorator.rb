@@ -8,7 +8,7 @@ class UserFriendshipDecorator < Draper::Decorator
   def sub_message
     case model.state
     when 'pending'
-      "Friend request pending."
+      "Friend request is pending."
     when 'accepted'
        "You are friends with #{model.friend.first_name}."
     end

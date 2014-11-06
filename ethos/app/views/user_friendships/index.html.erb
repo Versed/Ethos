@@ -4,7 +4,7 @@ Friends
   <% friend = friendship.friend %>
   <div id="<%= dom_id(friendship) %>" class="friend row">
     <div class="large-1 columns">
-      <%= link_to image_tag(friend.gravatar_url), profile_path(friend) %>
+      <%= link_to image_tag(friend.avatar), profile_path(friend) %>
     </div>
 
     <div class="large-7 columns">
