@@ -37,7 +37,7 @@ class UserFriendshipDecoratorTest < Draper::TestCase
       end
 
       should "be pending" do
-        assert_equal "Pending", decorator.friendship_state
+        assert_equal "Pending", @decorator.friendship_state
       end
     end
 
@@ -48,7 +48,7 @@ class UserFriendshipDecoratorTest < Draper::TestCase
       end
 
       should "be accepted" do
-        assert_equal "Accepted", decorator.friendship_state
+        assert_equal "Accepted", @decorator.friendship_state
       end
     end
 
@@ -59,7 +59,7 @@ class UserFriendshipDecoratorTest < Draper::TestCase
       end
 
       should "be requested" do
-        assert_equal "Requested", decorator.friendship_state
+        assert_equal "Requested", @decorator.friendship_state
       end
     end
   end
