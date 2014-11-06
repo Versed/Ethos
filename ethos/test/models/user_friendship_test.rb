@@ -87,7 +87,7 @@ class UserFriendshipTest < ActiveSupport::TestCase
     end
 
     should "delete the mutual friendship" do
-      assert_equal @friendship2 @friendship1.mutual_friendship
+      assert_equal @friendship2, @friendship1.mutual_friendship
       @friendship1.delete_mutual_friendship
 
       assert !UserFriendship.exists?(@friendship2.id)
