@@ -36,4 +36,11 @@ class UserTest < ActiveSupport::TestCase
     users(:nathan).pending_friends.reload
     assert users(:nathan).pending_friends.include?(users(:mike))
   end
+
+  context "#has_blocked" do
+    should "return true if blocked" do
+      assert users(:nathan).has_blocked?(users(:blocked_friend))
+      assert !users(:nathan).has_blocked?(users(:joe))
+    end
+  end
 end

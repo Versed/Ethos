@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
     first_name + " " + last_name
   end
 
+  def has_blocked?(user)
+    blocked_friends.include?(user)
+  end
+
   def avatar
     stripped_email = email.strip
     downcase_email = stripped_email.downcase
