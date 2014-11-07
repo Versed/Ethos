@@ -16,6 +16,12 @@ class User < ActiveRecord::Base
 
   has_many :requested_friends, through: :requested_user_friendships, source: :friend
 
+  has_many :blocked_user_friendships, -> { where(user_friendships: { state: 'blocked' }) },
+           class_name: 'UserFriendship',
+           foreign_key: :user_id
+
+  has_many :blocked_friends, through: :blocked_user_friendships, source: :friend
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 

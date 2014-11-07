@@ -18,3 +18,10 @@ mike:
   email: "mbluth233@hotmail.com"
   encrypted_password: "passwordistaco"
   username: "bluthybluth"
+
+blocked_friend:
+  first_name: "Blocked"
+  last_name: "Friend"
+  email: "blocked@example.com"
+  encrypted_password: "passwordyea"
+  username: "blockedfriend"
