@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141031212224) do
+ActiveRecord::Schema.define(version: 20141107190229) do
+
+  create_table "documents", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+  end
+
+  add_index "documents", ["user_id"], name: "index_documents_on_user_id"
 
   create_table "ideaboards", force: true do |t|
     t.datetime "created_at"
@@ -20,6 +32,7 @@ ActiveRecord::Schema.define(version: 20141031212224) do
     t.string   "title"
     t.text     "description"
     t.integer  "user_id"
+    t.integer  "document_id"
   end
 
   add_index "ideaboards", ["user_id"], name: "index_ideaboards_on_user_id"
