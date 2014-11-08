@@ -49,13 +49,14 @@ class IdeaboardsControllerTest < ActionController::TestCase
   end
 
   test "should get edit when logged in" do
+    ideaboard = Ideaboard.create(title: "test", description: "testing", id: 1)
     sign_in users(:nathan)
-    get :edit, id: @ideaboard
+    get :edit, id: ideaboard
     assert_response :success
   end
 
   test "should redirect update when not logged in" do
-    ideaboard = Ideaboard.create(title: "test", description: "testing")
+    ideaboard = Ideaboard.create(title: "test", description: "testing", id: 1)
     put :update, id: ideaboard
     assert_response :redirect
     assert_redirected_to new_user_session_path
