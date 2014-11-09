@@ -10,7 +10,8 @@ class IdeaboardsController < ApplicationController
   end
 
   def new
-    @ideaboard = Ideaboard.new
+    @ideaboard = current_user.ideaboards.new
+    @ideaboard.build_document
   end
 
   def create
@@ -41,6 +42,6 @@ class IdeaboardsController < ApplicationController
   end
 
   def ideaboard_params
-    params.require(:ideaboard).permit(:title, :description)
+    params.require(:ideaboard).permit(:title, :description, documents_attributes: [:attachment])
   end
 end
