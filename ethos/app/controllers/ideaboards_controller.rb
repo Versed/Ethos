@@ -2,7 +2,7 @@ class IdeaboardsController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
 
   def index
-    @ideaboards = Ideaboard.all
+    @ideaboards = Ideaboard.order('created_at desc').all
   end
 
   def show
@@ -30,11 +30,14 @@ class IdeaboardsController < ApplicationController
 
   def update
     @ideaboard = current_user.ideaboards.find(ideaboard_params)
+    @document = @ideaboard.document
+
     if params[:ideaboard] && params[:ideaboard].has_key?(:user_id)
       params[:ideaboard].delete(:user_id)
     end
 
-    if @ideaboard.update(ideaboard_params)
+    if @ideaboard.update_attributes(ideaboard_params) && @document &&
+        @document.update_attributes(params[:ideaboard][:documents_attributes])
       redirect_to @ideaboard
     else
       render 'edit'
@@ -42,6 +45,6 @@ class IdeaboardsController < ApplicationController
   end
 
   def ideaboard_params
-    params.require(:ideaboard).permit(:title, :description, documents_attributes: [:attachment])
+    params.require(:ideaboard).permit(:title, :description, documents_attributes: [:attachment, :remove_attachment])
   end
 end
