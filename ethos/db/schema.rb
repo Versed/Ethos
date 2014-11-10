@@ -46,6 +46,22 @@ ActiveRecord::Schema.define(version: 20141110202946) do
 
   add_index "ideaboards", ["user_id"], name: "index_ideaboards_on_user_id"
 
+  create_table "pictures", force: true do |t|
+    t.integer  "album_id"
+    t.integer  "ideaboard_id"
+    t.string   "capton"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "asset_file_name"
+    t.string   "asset_content_type"
+    t.integer  "asset_file_size"
+    t.datetime "asset_updated_at"
+  end
+
+  add_index "pictures", ["album_id"], name: "index_pictures_on_album_id"
+  add_index "pictures", ["ideaboard_id"], name: "index_pictures_on_ideaboard_id"
+
   create_table "user_friendships", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
