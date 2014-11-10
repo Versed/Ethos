@@ -1,1 +1,5 @@
 <%= @ideaboard.title %>, <%= @ideaboard.user.full_name %>, <%= @ideaboard.description %>
+
+<% if @ideaboard.document && @ideaboard.document.attachment? %>
+  <%= ideaboard_document_link @ideaboard %>
+<% end %>
