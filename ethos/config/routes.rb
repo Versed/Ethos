@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  resources :albums
+
   as :user do
     get '/register', to: 'devise/registrations#new', as: :register
     get '/login', to: 'devise/sessions#new', as: :login

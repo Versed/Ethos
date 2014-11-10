@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110192345) do
+ActiveRecord::Schema.define(version: 20141110202946) do
+
+  create_table "albums", force: true do |t|
+    t.integer  "ideaboard_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "albums", ["ideaboard_id"], name: "index_albums_on_ideaboard_id"
 
   create_table "documents", force: true do |t|
     t.integer  "user_id"
