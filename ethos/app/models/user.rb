@@ -22,7 +22,9 @@ class User < ActiveRecord::Base
 
   has_many :blocked_friends, through: :blocked_user_friendships, source: :friend
 
-  has_attached_file :avatar
+  has_attached_file :avatar, styles: {
+    large: "800x800>", medium: "300x200>", small: "260x180>", thumb: "80x80#"
+  }
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -31,6 +33,15 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  def self.get_gravatars
+    all.each do |user|
+      if !user.avatar?
+        user.avatar = URI.parse(user.gravatar_url)
+        user.save
+      end
+    end
+  end
 
   def to_param
     username
