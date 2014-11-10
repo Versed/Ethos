@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  resources :pictures
-
-  resources :albums
-
   as :user do
     get '/register', to: 'devise/registrations#new', as: :register
     get '/login', to: 'devise/sessions#new', as: :login
@@ -26,5 +22,12 @@ Rails.application.routes.draw do
     end
   end
 
+  scope ":username" do
+    resources :albums do
+      resources :pictures
+    end
+  end
+
   get '/:id', to: 'profiles#show', as: 'profile'
+
 end
