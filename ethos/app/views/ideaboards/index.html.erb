@@ -7,7 +7,7 @@
             <div class="larege-4 small-4 columns">
               <%= link_to profile_path(ideaboard.user) do %>
                 <%= ideaboard.user.full_name %>
-                <%= image_tag(ideaboard.user.avatar) %>
+                <%= avatar_profile_link ideaboard.user, {}, class: '' %>
               <% end %>
             </div>
           </div>

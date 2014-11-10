@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 
   has_many :blocked_friends, through: :blocked_user_friendships, source: :friend
 
+  has_attached_file :avatar
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 
@@ -42,7 +44,7 @@ class User < ActiveRecord::Base
     blocked_friends.include?(user)
   end
 
-  def avatar
+  def gravatar_url
     stripped_email = email.strip
     downcase_email = stripped_email.downcase
     hash = Digest::MD5.hexdigest(downcase_email)
