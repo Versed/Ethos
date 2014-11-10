@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
     large: "800x800>", medium: "300x200>", small: "260x180>", thumb: "80x80#"
   }
 
+  validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 
@@ -39,6 +41,7 @@ class User < ActiveRecord::Base
       if !user.avatar?
         user.avatar = URI.parse(user.gravatar_url)
         user.save
+        print "."
       end
     end
   end
