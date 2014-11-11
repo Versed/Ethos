@@ -1,4 +1,8 @@
 <div class="row">
+  <% if signed_in? %>
+    <%= render 'form' %>
+  <% end %>
+
   <% @ideaboards.each do |ideaboard| %>
     <% if can_display_ideaboard?(ideaboard) %>
       <div class="large-4 columns">
