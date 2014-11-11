@@ -1,24 +1,9 @@
-<p id="notice"><%= notice %></p>
+<%= page_header do %>
+<% end %>
 
-<p>
-  <strong>Album:</strong>
-  <%= @picture.album %>
-</p>
+<%= image_tag(@picture.asset.url(:large), alt: @picture.caption) %>
+<%= @picture.caption %>
+<%= @picture.description %>
 
-<p>
-  <strong>Ideaboard:</strong>
-  <%= @picture.ideaboard %>
-</p>
-
-<p>
-  <strong>Capton:</strong>
-  <%= @picture.capton %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @picture.description %>
-</p>
-
-<%= link_to 'Edit', edit_picture_path(@picture) %> |
-<%= link_to 'Back', pictures_path %>
+<%= link_to 'Edit', edit_album_picture_path(@album, @picture) %> |
+<%= link_to 'Album', album_pictures_path(@album) %>

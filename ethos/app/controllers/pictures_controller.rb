@@ -28,11 +28,13 @@ class PicturesController < ApplicationController
   def update
     @picture.update(picture_params)
     respond_with(@picture)
+    redirect_to album_pictures_path(@album, notice: "Picture was updated.")
   end
 
   def destroy
     @picture.destroy
     respond_with(@picture)
+    redirect_to album_pictures_path(@album, notice: "Picture was removed.")
   end
 
   private

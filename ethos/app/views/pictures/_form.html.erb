@@ -2,8 +2,8 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.association :album %>
-    <%= f.association :ideaboard %>
+    <%= f.input :asset, as: :file %>
+    <%= foundation_paperclip_picture f, :asset %>
     <%= f.input :capton %>
     <%= f.input :description %>
   </div>
