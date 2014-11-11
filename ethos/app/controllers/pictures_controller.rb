@@ -1,5 +1,6 @@
 class PicturesController < ApplicationController
-  before_action :set_picture, only: [:show, :edit, :update, :destroy]
+  before_action :set_information, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @pictures = Picture.all
@@ -35,8 +36,10 @@ class PicturesController < ApplicationController
   end
 
   private
-    def set_picture
-      @picture = Picture.find(params[:id])
+    def set_information
+      @user = User.find_by_username(params[:username])
+      @album = @user.albums.find(params[:album_id])
+      @picture = @album.pictures.find(params[:picture_id])
     end
 
     def picture_params
