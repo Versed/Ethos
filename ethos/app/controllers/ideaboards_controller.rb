@@ -3,8 +3,11 @@ class IdeaboardsController < ApplicationController
 
   def index
     @ideaboards = Ideaboard.order('created_at desc').all
-    @ideaboard = current_user.ideaboards.new
-    @ideaboard.build_document
+
+    if signed_in?
+      @ideaboard = current_user.ideaboards.new
+      @ideaboard.build_document
+    end
   end
 
   def show
