@@ -16,7 +16,7 @@
             </div>
           </div>
           <%= link_to "#{ideaboard.title}", ideaboard_path(ideaboard) %>
-          <%= ideaboard_document_link @ideaboard %>
+          <%= ideaboard_document_link ideaboard %>
           <p class="description"><%= ideaboard.description %>
 
           <hr>

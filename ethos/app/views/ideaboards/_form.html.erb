@@ -1,6 +1,6 @@
 <div class="row">
   <div class="large-6 columns large-centered">
-    <%= simple_form_for(@ideaboard, html: { multipart: true }) do |f| %>
+    <%= simple_form_for(@ideaboard, html: { class: '', multipart: true }) do |f| %>
       <% if @ideaboard.errors.any? %>
         <div id="error_explanation">
           <h2>
@@ -26,12 +26,12 @@
               document_fields.object.attachment.url %>
           </div>
           <div>
-            <%= document_fields.input :remove_attachment, as: :boolean, label "Remove attachment?" %>
+            <%= document_fields.input :remove_attachment, as: :boolean, label: "Remove attachment?" %>
           </div>
         <% end %>
         <%= document_fields.input :attachment, as: :file %>
       <% end %>
       <%= f.submit class: 'button'%>
     <% end %>
-  </end>
+  </div>
 </div>
