@@ -26,7 +26,7 @@ Viewing friendship
 <%= simple_form_for @user_friendship, url: block_user_friendship_path(@user_friendship), method:
   :put do |form| %>
 
-  <%= form.submit "Accept friendship", class: "button" %>
+  <%= form.submit "Block friendship", class: "button" %>
 <% end %>
 
 <%= simple_form_for @user_friendship, url: user_friendship_path(@user_friendship), method:
