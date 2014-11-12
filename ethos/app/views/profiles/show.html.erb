@@ -1,6 +1,6 @@
 <%= @user.full_name %>
 
-<% if signed_in? %>
+<% if signed_in? && current_user != @user %>
   <div id="friend-status">
     <% if current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
       <%= link_to "Edit Friendship", edit_user_friendship_path(friend_id: @user), class: "button" %>
