@@ -1,8 +1,7 @@
 $(document).ready ->
-  $("#ideaboard-create").hide()
-  $("#ideaboard-title").focus ->
-    console.log('focused')
-    $("#ideaboard-create").toggle()
+  $("#ideaboard-create").addClass("unload")
+  $("#ideaboard_title").focus ->
+    $("#ideaboard-create").removeClass("unload").addClass("load")
 
-  $("#ideaboard-title").blur ->
-    $("ideaboard-create").toggle()
+  $("#ideaboard-cancel").click ->
+    $("#ideaboard-create").removeClass("load").addClass("unload")
