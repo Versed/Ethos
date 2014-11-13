@@ -13,16 +13,16 @@ class AlbumsController < ApplicationController
 
   def new
     @album = Album.new
+    add_breadcrumb "New Album"
   end
 
   def edit
-    add_breadcrumb "Editing Album"
+    add_breadcrumb "Edit Album"
   end
 
   def create
     @album = Album.new(album_params)
     @album.save
-    respond_with(@album)
   end
 
   def update
@@ -56,6 +56,7 @@ class AlbumsController < ApplicationController
     def set_info
       @ideaboard = Ideaboard.find(params[:id])
       @albums = @ideaboard.albums.all
+      @user = @ideaboard.user
     end
 
     def album_params

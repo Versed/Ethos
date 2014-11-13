@@ -13,4 +13,6 @@
   <% end %>
 <br>
 
-<%= link_to 'New Album', new_album_path %>
+<% if signed_in? && current_user == @user %>
+  <%= link_to 'New Album', new_album_path %>
+<% end %>
