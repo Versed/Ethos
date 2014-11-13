@@ -1,9 +1,11 @@
 class PicturesController < ApplicationController
   before_action :set_information, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :ensure_proper_user, only: [:edit, :new, :create, :update, :destroy]
+  before_filter :add_breadcrumbs
 
   def index
-    @pictures = Picture.all
+    @pictures = @album.pictures.all
     respond_with(@pictures)
   end
 
@@ -38,9 +40,17 @@ class PicturesController < ApplicationController
   end
 
   private
+
+    def ensure_proper_user
+      if current_user.username != @ideaboard.user.username
+        flash[:error] = "You do not have permission to do that"
+        redirect_to album_pictures_path
+      end
+    end
+
     def set_information
-      @user = User.find_by_username(params[:username])
-      @album = @user.albums.find(params[:album_id])
+      @ideaboard = Ideaboard.find(params[:id])
+      @album = @ideaboard.albums.find(params[:album_id])
       @picture = @album.pictures.find(params[:picture_id])
     end
 

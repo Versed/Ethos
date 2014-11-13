@@ -6,4 +6,8 @@ module AlbumsHelper
       image_tag("placeholder.todo")
     end
   end
+
+  def can_edit_album?(album)
+    signed_in? && current_user == album.user
+  end
 end

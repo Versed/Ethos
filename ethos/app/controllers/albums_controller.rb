@@ -1,6 +1,7 @@
 class AlbumsController < ApplicationController
   before_action :set_album, only: [:show, :edit, :update, :destroy]
   before_filter :authenicate_user!, only: [:create, :new, :update, :edit, :destroy]
+  before_filter :ensure_proper_user, only: [:edit, :new, :create, :update, :destroy]
 
   def index
     @albums = Album.all
@@ -17,6 +18,7 @@ class AlbumsController < ApplicationController
   end
 
   def edit
+    add_breadcrumb "Editing Album"
   end
 
   def create
@@ -36,8 +38,16 @@ class AlbumsController < ApplicationController
   end
 
   private
+   def ensure_proper_user
+      if current_user.username != @ideaboard.user.username
+        flash[:error] = "You do not have permission to do that"
+        redirect_to albums_path
+      end
+    end
+
     def set_album
-      @album = Album.find(params[:id])
+      @ideaboard = Ideaboard.find(params[:id])
+      @album = @ideaboard.albums.find(params[:id])
     end
 
     def album_params
