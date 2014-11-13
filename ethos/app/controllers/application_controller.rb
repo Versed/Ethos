@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation, :first_name, :last_name, :username) }
   end
+
+  def render_permission_error
+    render file: 'public/500.html', status: :error, layout: false
+  end
 end

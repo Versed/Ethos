@@ -29,8 +29,12 @@ class AlbumsController < ApplicationController
   end
 
   def update
-    @album.update(album_params)
-    respond_with(@album)
+    if @album.update(album_params)
+      redirect_to album_pictures_path(@album), notice: 'Success'
+    else
+      flash.now[:error] = "Error updating. Please try again."
+      render action: "edit"
+    end
   end
 
   def destroy
@@ -44,7 +48,7 @@ class AlbumsController < ApplicationController
       add_breadcrumb "Albums", albums_path
     end
 
-   def ensure_proper_user
+    def ensure_proper_user
       if current_user.username != @ideaboard.user.username
         flash[:error] = "You do not have permission to do that"
         redirect_to albums_path

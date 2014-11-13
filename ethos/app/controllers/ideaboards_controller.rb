@@ -1,5 +1,6 @@
 class IdeaboardsController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
+  rescue_from ActiveModel::MassAssignmentSecurity::Error, with: :render_permission_error
 
   def index
     @ideaboards = Ideaboard.order('created_at desc').all
@@ -37,16 +38,15 @@ class IdeaboardsController < ApplicationController
     @ideaboard = current_user.ideaboards.find(ideaboard_params)
     @document = @ideaboard.document
 
-    if params[:ideaboard] && params[:ideaboard].has_key?(:user_id)
-      params[:ideaboard].delete(:user_id)
+    @ideaboard.transaction do
+      @ideaboard.update_attributes(ideaboard_params)
+      @document.update_attributes(ideaboard_params) if @document
+      raise ActiveRecord::Rollback unless @ideaboard.valid? && @document.try(:valid?)
     end
 
-    if @ideaboard.update_attributes(ideaboard_params) && @document &&
-        @document.update_attributes(params[:ideaboard][:documents_attributes])
-      redirect_to @ideaboard
-    else
-      render 'edit'
-    end
+    rescue ActiveRecord::Rollback
+    flash.now[:error] = "Update Failed"
+    render 'edit'
   end
 
   def ideaboard_params
