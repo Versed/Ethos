@@ -3,3 +3,15 @@
 <% if @ideaboard.document && @ideaboard.document.attachment? %>
   <%= ideaboard_document_link @ideaboard %>
 <% end %>
+
+ <% if @albums %>
+  <% @albums[0..3].each do |album| %>
+    <%= album.ideaboard %>
+    <%= album.title %>
+    <%= link_to 'Show', album %>
+    <% if can_edit_album(album) %>
+      | <%= link_to 'Edit', edit_album_path(album) %>
+      | <%= link_to 'Delete', album, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  <% end %>
+<% end %>

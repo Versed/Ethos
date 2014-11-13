@@ -17,41 +17,43 @@
       <% end %>
 
       <div class="large-5 columns large-centered">
-        <%= f.input :title, placeholder: "Title", label: false %>
+        <%= f.input :title, placeholder: "Create new Ideaboard", label: false, id: "ideaboard-title" %>
       </div>
 
-      <fieldset>
-        <div class="row">
-          <div class="large-6 columns">
-            <label>Tags
-              <input type="text"></input>
-            </label>
+      <div id="ideaboard-create">
+        <fieldset>
+          <div class="row">
+            <div class="large-6 columns">
+              <label>Tags
+                <input type="text"></input>
+              </label>
+            </div>
+
+            <div class="large-6 columns">
+              <label>Skills
+                <input type="text"></input>
+              </label>
+            </div>
           </div>
 
-          <div class="large-6 columns">
-            <label>Skills
-              <input type="text"></input>
-            </label>
-          </div>
-        </div>
-
-        <%= f.input :description %>
-        <%= f.fields_for :document do |document_fields| %>
-          <% if document_fields.object.attachment? %>
-            <div>
-              Current attachment:
-              <%= link_to document_fields.object.attachment_file_name,
-                document_fields.object.attachment.url %>
-            </div>
-            <div>
-              <%= document_fields.input :remove_attachment, as: :boolean, label: "Remove attachment?" %>
-            </div>
+          <%= f.input :description %>
+          <%= f.fields_for :document do |document_fields| %>
+            <% if document_fields.object.attachment? %>
+              <div>
+                Current attachment:
+                <%= link_to document_fields.object.attachment_file_name,
+                  document_fields.object.attachment.url %>
+              </div>
+              <div>
+                <%= document_fields.input :remove_attachment, as: :boolean, label: "Remove attachment?" %>
+              </div>
+            <% end %>
+            <%= document_fields.input :attachment, as: :file %>
           <% end %>
-          <%= document_fields.input :attachment, as: :file %>
-        <% end %>
-      </fieldset>
+        </fieldset>
 
-      <%= f.submit class: 'button'%>
+        <%= f.submit class: 'button'%>
+      </div>
     <% end %>
   </div>
 </div>

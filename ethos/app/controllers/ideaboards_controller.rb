@@ -1,6 +1,5 @@
 class IdeaboardsController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
-  rescue_from ActiveModel::MassAssignmentSecurity::Error, with: :render_permission_error
 
   def index
     @ideaboards = Ideaboard.order('created_at desc').all
@@ -13,6 +12,8 @@ class IdeaboardsController < ApplicationController
 
   def show
     @ideaboard = Ideaboard.find(params[:id])
+    add_breadcrumb "Ideaboards", ideaboards_path
+    add_breadcrumb @ideaboard.title
   end
 
   def new

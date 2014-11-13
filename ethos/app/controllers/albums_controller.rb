@@ -1,12 +1,10 @@
 class AlbumsController < ApplicationController
-  before_action :set_album, only: [:show, :edit, :update, :destroy]
+  before_action :set_info
   before_filter :authenicate_user!, only: [:create, :new, :update, :edit, :destroy]
   before_filter :ensure_proper_user, only: [:edit, :new, :create, :update, :destroy]
   before_filter :add_breadcrumbs
 
   def index
-    @albums = Album.all
-    respond_with(@albums)
   end
 
   def show
@@ -15,7 +13,6 @@ class AlbumsController < ApplicationController
 
   def new
     @album = Album.new
-    respond_with(@album)
   end
 
   def edit
@@ -44,7 +41,8 @@ class AlbumsController < ApplicationController
 
   private
     def add_breadcrumbs
-      add_breadcrumb @ideaboard, ideaboards_path(@ideaboard)
+      add_breadcrumb "Ideaboards", ideaboards_path
+      add_breadcrumb @ideaboard.title, ideaboard_path(@ideaboard)
       add_breadcrumb "Albums", albums_path
     end
 
@@ -55,9 +53,9 @@ class AlbumsController < ApplicationController
       end
     end
 
-    def set_album
+    def set_info
       @ideaboard = Ideaboard.find(params[:id])
-      @album = @ideaboard.albums.find(params[:id])
+      @albums = @ideaboard.albums.all
     end
 
     def album_params

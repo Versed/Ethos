@@ -15,6 +15,7 @@ gem 'state_machine'
 gem 'draper'
 gem 'js-routes'
 gem 'paperclip'
+gem 'breadcrumbs_on_rails'
 gem 'acts_as_commentable'
 
 group :development do

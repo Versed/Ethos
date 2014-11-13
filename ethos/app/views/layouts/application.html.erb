@@ -56,9 +56,11 @@
           </section>
         </nav>
 
-        <div class="row">
-          <%= render_breadcrumbs :builder => ::FoundationBreadcrumbsBuilder, :separator => "&raquo;" %>
+        <ul class="breadcrumbs">
+          <%= render_breadcrumbs :tag => :li, :separator => "" %>
+        </ul>
 
+        <div class="row">
           <% flash.each do |type, message| %>
             <div data-alert class="alert-box large-12 columns <%= flash_class type %>">
               <%= message %>

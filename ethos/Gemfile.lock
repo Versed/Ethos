@@ -30,6 +30,7 @@ GEM
     acts_as_commentable (4.0.2)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.9)
+    breadcrumbs_on_rails (2.3.0)
     builder (3.2.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -166,6 +167,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_commentable
+  breadcrumbs_on_rails
   coffee-rails (~> 4.0.0)
   devise
   draper
