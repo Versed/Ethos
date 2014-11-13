@@ -22,7 +22,13 @@ class AlbumsController < ApplicationController
 
   def create
     @album = Album.new(album_params)
-    @album.save
+    if @album.save
+      flash[:success] = "Created Album #{@album.title}."
+      redirect_to albums_path
+    else
+      flash[:error] = "Couldn't save."
+      redirect_to albums_path
+    end
   end
 
   def update

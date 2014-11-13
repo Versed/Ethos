@@ -63,6 +63,6 @@ class PicturesController < ApplicationController
     end
 
     def picture_params
-      params.require(:picture).permit(:album_id, :ideaboard_id, :capton, :description)
+      params.require(:picture).permit(:album_id, :ideaboard_id, :caption, :description)
     end
 end
