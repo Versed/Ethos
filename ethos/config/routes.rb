@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope ":username" do
+  scope ":ideaboard/:id" do
     resources :albums do
       resources :pictures
     end
