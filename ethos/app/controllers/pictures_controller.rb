@@ -10,6 +10,9 @@ class PicturesController < ApplicationController
   end
 
   def show
+    @picture = @album.pictures.find(params[:id])
+    add_breadcrumb @picture, album_picture_path(@album, @picture)
+
     respond_with(@picture)
   end
 
@@ -40,6 +43,11 @@ class PicturesController < ApplicationController
   end
 
   private
+    def add_breadcrumbs
+      add_breadcrumb @ideaboard.title, ideaboards_path(@ideaboard)
+      add_breadcrumb "Albums", albums_path
+      add_breadcrumb "Pictures", album_pictures_path(@album)
+    end
 
     def ensure_proper_user
       if current_user.username != @ideaboard.user.username

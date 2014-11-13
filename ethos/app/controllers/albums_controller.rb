@@ -2,6 +2,7 @@ class AlbumsController < ApplicationController
   before_action :set_album, only: [:show, :edit, :update, :destroy]
   before_filter :authenicate_user!, only: [:create, :new, :update, :edit, :destroy]
   before_filter :ensure_proper_user, only: [:edit, :new, :create, :update, :destroy]
+  before_filter :add_breadcrumbs
 
   def index
     @albums = Album.all
@@ -38,6 +39,11 @@ class AlbumsController < ApplicationController
   end
 
   private
+    def add_breadcrumbs
+      add_breadcrumb @ideaboard, ideaboards_path(@ideaboard)
+      add_breadcrumb "Albums", albums_path
+    end
+
    def ensure_proper_user
       if current_user.username != @ideaboard.user.username
         flash[:error] = "You do not have permission to do that"
