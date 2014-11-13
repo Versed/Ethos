@@ -10,7 +10,7 @@ class AlbumsController < ApplicationController
   end
 
   def show
-    respond_with(@album)
+    redirect_to album_pictures_path(params[:id])
   end
 
   def new
