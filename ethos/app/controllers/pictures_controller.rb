@@ -25,20 +25,30 @@ class PicturesController < ApplicationController
   end
 
   def create
-    @picture = Picture.new(picture_params)
-    @picture.save
-    respond_with(@picture)
+    @picture = @album.pictures.new(picture_params)
+
+    if @picture.save
+      current_user.create_activity(@picture, 'created')
+      redirect_to album_pictures_path(@album, notice: "Picture was created")
+    else
+      render action: 'new'
+      flash[:error] = "Error creating picture"
+    end
   end
 
   def update
-    @picture.update(picture_params)
-    respond_with(@picture)
-    redirect_to album_pictures_path(@album, notice: "Picture was updated.")
+    if @picture.update(picture_params)
+      current_user.create_activity(@picture, 'updated')
+      redirect_to album_pictures_path(@album, notice: "Picture was updated.")
+    else
+      render action: 'edit'
+      flash[:error] = "Error updating picture"
+    end
   end
 
   def destroy
     @picture.destroy
-    respond_with(@picture)
+    current_user.create_activity(@picture, 'deleted')
     redirect_to album_pictures_path(@album, notice: "Picture was removed.")
   end
 

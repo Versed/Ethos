@@ -25,6 +25,7 @@ class IdeaboardsController < ApplicationController
     @ideaboard = current_user.ideaboards.new(ideaboard_params)
 
     if @ideaboard.save
+      current_user.create_activity(@ideaboard, 'created')
       redirect_to @ideaboard
     else
       render 'new'
@@ -42,7 +43,11 @@ class IdeaboardsController < ApplicationController
     @ideaboard.transaction do
       @ideaboard.update_attributes(ideaboard_params)
       @document.update_attributes(ideaboard_params) if @document
-      raise ActiveRecord::Rollback unless @ideaboard.valid? && @document.try(:valid?)
+      current_user.create_activity(@ideaboard, 'updated')
+
+      unless @ideaboard.valid? || (@ideaboard.valid? && @document && !@document.valid?)
+        raise ActiveRecord::Rollback
+      end
     end
 
     rescue ActiveRecord::Rollback

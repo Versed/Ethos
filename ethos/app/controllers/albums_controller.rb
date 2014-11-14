@@ -22,7 +22,9 @@ class AlbumsController < ApplicationController
 
   def create
     @album = Album.new(album_params)
+
     if @album.save
+      current_user.create_activity(@album, 'created')
       flash[:success] = "Created Album #{@album.title}."
       redirect_to albums_path
     else
@@ -33,6 +35,7 @@ class AlbumsController < ApplicationController
 
   def update
     if @album.update(album_params)
+      current_user.create_activity(@album, 'updated')
       redirect_to album_pictures_path(@album), notice: 'Success'
     else
       flash.now[:error] = "Error updating. Please try again."
@@ -42,7 +45,8 @@ class AlbumsController < ApplicationController
 
   def destroy
     @album.destroy
-    respond_with(@album)
+    current_user.create_activity(@album, 'deleted')
+    redirect_to albums_path
   end
 
   private

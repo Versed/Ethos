@@ -40,6 +40,14 @@ class IdeaboardsControllerTest < ActionController::TestCase
   test "should be able to post ideaboard when logged in" do
     sign_in users(:nathan)
 
+    assert_difference('Activity.count') do
+      post :create, ideaboard: { title: "Test", description: "testing", user_id: users(:joe).id }
+    end
+  end
+
+  test "should create activity feed when creating ideaboard" do
+    sign_in users(:nathan)
+
     assert_difference('Ideaboard.count') do
       post :create, ideaboard: { title: "Test", description: "testing", user_id: users(:joe).id }
     end
