@@ -13,6 +13,8 @@ class UserTest < ActiveSupport::TestCase
   should have_many(:blocked_user_friendships)
   should have_many(:blocked_friends)
 
+  should have_many(:activities)
+
   test "a user should enter a first name" do
     user = User.new
     assert !user.save
@@ -41,6 +43,19 @@ class UserTest < ActiveSupport::TestCase
     should "return true if blocked" do
       assert users(:nathan).has_blocked?(users(:blocked_friend))
       assert !users(:nathan).has_blocked?(users(:joe))
+    end
+  end
+
+  context "#create_activity" do
+    should "increase the Activity count" do
+      assert_difference 'Activity.count' do
+        users(:nathan).create_activity(ideaboards(:one), 'created')
+      end
+    end
+
+    should "set the targetable instance to the item passed in" do
+      activity = users(:nathan).create_activity(ideaboards(:one), 'created')
+      assert_equal ideaboards(:one), activity.targetable
     end
   end
 end

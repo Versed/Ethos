@@ -1,7 +1,5 @@
 require 'test_helper'
 
 class IdeaboardTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  should belong_to(:user)
 end
