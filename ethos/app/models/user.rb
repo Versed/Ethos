@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :ideaboards
+  has_many :activities
   has_many :user_friendships
   has_many :friends, -> { where(user_friendships: { state: "accepted" }) },
            through: :user_friendships
@@ -68,5 +69,13 @@ class User < ActiveRecord::Base
     hash = Digest::MD5.hexdigest(downcase_email)
 
     "http://gravatar.com/avatar/#{hash}"
+  end
+
+  def create_activity(item, action)
+    activity = activities.new
+    activity.targetable = item
+    activity.action = action
+    activity.save
+    activity
   end
 end
