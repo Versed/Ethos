@@ -1,0 +1,8 @@
+Collaborators for <%= @ideaboard.title %>
+
+<% if signed_in? && @ideaboard.user == current_user %>
+<% end %>
+
+<% if can_collaborate?(@ideaboard) %>
+  <%= link_to "Apply to be a Collaborator", new_collaboration_path('ideaboards', @ideaboard) %>
+<% end %>

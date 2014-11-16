@@ -20,3 +20,5 @@
 <% if signed_in? && current_user == @ideaboard.user %>
   <%= link_to "New Album", new_album_path('ideaboards', @ideaboard) %>
 <% end %>
+
+<%= link_to "Collaborators", collaborations_path('ideaboards', @ideaboard) %>

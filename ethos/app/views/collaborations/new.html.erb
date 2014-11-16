@@ -1,0 +1,10 @@
+<% if @ideaboard %>
+  <h1><%= @ideaboard.title %></h1>
+  <p>Do you really want to apply to join <%= @ideaboard.title %>?</p>
+
+  <%= simple_form_for @collaboration, method: :post do |f| %>
+    <%= f.hidden_field :user_id, :value => current_user %>
+    <%= f.submit "Yes, apply", class: "button" %>
+    <%= link_to "Cancel", ideaboard_path(@ideaboard) %>
+  <% end %>
+<% end %>

@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     resources :albums do
       resources :pictures
     end
+
+    resources :collaborations
   end
 
   get '/:id', to: 'profiles#show', as: 'profile'

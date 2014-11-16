@@ -3,6 +3,7 @@ class Ideaboard < ActiveRecord::Base
   belongs_to :document
   has_many :albums
   has_many :pictures
+  has_many :collaborations
 
   accepts_nested_attributes_for :document
 
