@@ -1,10 +1,9 @@
 class ActivitiesController < ApplicationController
   def index
-    friend_ids = current_user.friends.map(&:id)
+    params[:page] ||= 1
     # collaborators_id = curent_user.@ideaboards.map do |ideaboard|
       # ideaboard.collaborators.map(&:id)
     # end
-
-    @activities = Activity.where("user_id in (?)", friend_ids.push(current_user.id)).order("created_at desc").all
+    @activities = Activity.for_user(curent_user, params)
   end
 end
