@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   root to: 'ideaboards#index'
 
   resources :ideaboards
+  resources :activities, only: [:index]
   resources :user_friendships do
     member do
       put :accept
