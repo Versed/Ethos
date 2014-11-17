@@ -8,8 +8,8 @@ class Activity < ActiveRecord::Base
     options[:page] ||= 1
     friend_ids = user.friends.map(&:id).push(user.id))
 
-    where("user_id in (?)", friend_ids
+    collection = where("user_id in (?)", friend_ids
       .order("created_at desc")
-      .page(options[:page])
+    collection.page(options[:page])
   end
 end
