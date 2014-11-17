@@ -22,10 +22,11 @@ $(function(){ $(document).foundation(); });
 
 var pollActivity = function() {
   $.ajax({
-    url: Routes.activites_path({format: 'json'}),
+    url: Routes.activites_path({format: 'json', since: window.lastFetch}),
     type: 'GET',
     dataType: 'json',
     success: function(data) {
+      window.lastFetch = Math.floor((new Date).getTime() / 1000);
       console.log(data);
     }
   });
