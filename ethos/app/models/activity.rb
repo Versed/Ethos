@@ -6,10 +6,10 @@ class Activity < ActiveRecord::Base
 
   def self.for_user(user, options={})
     options[:page] ||= 1
-    friend_ids = user.friends.map(&:id).push(user.id))
+    friend_ids = user.friends.map(&:id).push(user.id)
 
     collection = where("user_id in (?)", friend_ids
-      .order("created_at desc")
+      .order("created_at desc"))
 
     if options[:since] && !options[:since].blank?
       since = DateTime.strptime(options[:since], '%s')
