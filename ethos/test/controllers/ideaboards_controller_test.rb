@@ -19,6 +19,15 @@ class IdeaboardsControllerTest < ActionController::TestCase
     assert_match /blocked\ idea/, response.body
   end
 
+  test "should display a users associated ideaboards list" do
+    sign_in users(:nathan)
+    users(:nathan).ideaboards.create(description: 'test')
+    users(:joe).ideaboards.create(description: 'not-followed')
+    get :list
+    assert_match /test/, response.body
+    assert_no_match /not\-followed/, response.body
+  end
+
   test "should redirect when not logged in" do
     get :new
     assert_response :redirect
