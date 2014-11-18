@@ -10,6 +10,10 @@ class IdeaboardsController < ApplicationController
     end
   end
 
+  def list
+    @ideaboards = current_user.ideaboards.order('created_at desc').all
+  end
+
   def show
     @ideaboard = Ideaboard.find(params[:id])
     add_breadcrumb "Ideaboards", ideaboards_path

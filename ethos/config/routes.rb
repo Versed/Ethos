@@ -32,5 +32,5 @@ Rails.application.routes.draw do
   end
 
   get '/:id', to: 'profiles#show', as: 'profile'
-
+  get '/:id/ideaboards', to: 'ideaboards#list', as: 'ideaboards_list'
 end
