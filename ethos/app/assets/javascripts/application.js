@@ -20,6 +20,35 @@
 
 $(function(){ $(document).foundation(); });
 
+window.loadedActivities = [];
+
+var addActivity = function(item) {
+  var found = false;
+
+  var length = window.loadedActivities.length;
+  for (var i = 0; i < length; i++) {
+    if (window.loadedActivities[i].id === item.id) {
+      found = true;
+    }
+  }
+
+  if (!found) {
+    window.loadedActivities.push(item);
+  }
+
+  return item;
+};
+
+var renderActivities = function() {
+  var source = $('#activities-template').html();
+  var template = Handlebars.compile(source);
+  var html = template({activities: window.loadedActivities});
+  var activityFeed = $('#activity-feed');
+  activityFeed.empty();
+  activityFeed.addClass('has-dropdown');
+  activityFeed.html(html);
+};
+
 var pollActivity = function() {
   $.ajax({
     url: Routes.activites_path({format: 'json', since: window.lastFetch}),
@@ -27,7 +56,14 @@ var pollActivity = function() {
     dataType: 'json',
     success: function(data) {
       window.lastFetch = Math.floor((new Date).getTime() / 1000);
-      console.log(data);
+      if (data.length === 0) { return; }
+
+      var length = data.length;
+      for (var i = 0; i < length; i++) {
+        addActivity(data[i]);
+      }
+
+      renderActivities();
     }
   });
 };
