@@ -11,7 +11,7 @@ class IdeaboardsController < ApplicationController
   end
 
   def list
-    @ideaboards = current_user.ideaboards.order('created_at desc').all
+    @ideaboards = current_user.ideaboards.order('created_at desc')
   end
 
   def show
