@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :collaborations
   end
 
+  get '/users', to: 'user_friendships#list', as: 'users_list'
   get '/:id', to: 'profiles#show', as: 'profile'
   get '/:id/ideaboards', to: 'ideaboards#list', as: 'ideaboards_list'
 end

@@ -18,6 +18,12 @@ class UserFriendshipsController < ApplicationController
     redirect_to user_friendships_path
   end
 
+  def list
+    params[:page] ||= 1
+
+    @users = User.paginate(:page => params[:page], :per_page => 12)
+  end
+
   def block
     @user_friendship = current_user.user_friendships.find(params[:id]);
     if @user_friendship.block!

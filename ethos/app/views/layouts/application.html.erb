@@ -38,9 +38,7 @@
             <ul class="right">
               <% if user_signed_in? %>
                 <li class="avatar has-dropdown">
-                  <%= link_to profile_path(current_user) do %>
-                    <%= avatar_profile_link current_user, {}, class: '' %>
-                  <% end %>
+                  <%= link_to  "Profile", profile_path(current_user) %>
                   <ul class="dropdown">
                       <li>link_to settings_path(@user)</li>
                       <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
@@ -81,7 +79,7 @@
     <footer>
       <ul class="inline-list">
         <li><%= link_to "Home", ideaboards_path %></li>
-        <li>link_to "Connects", users_path </li>
+        <li><%= link_to "Connects", users_list_path %></li>
         <% if user_signed_in? %>
           <li><%= link_to "Profile", profile_path(current_user) %></li>
         <% end %>
