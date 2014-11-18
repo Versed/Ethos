@@ -21,7 +21,7 @@ class UserFriendshipsController < ApplicationController
   def list
     params[:page] ||= 1
 
-    @users = User.paginate(:page => params[:page], :per_page => 12)
+    @users = User.paginate(:page => params[:page], :per_page => 20)
   end
 
   def block
