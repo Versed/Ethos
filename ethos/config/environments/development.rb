@@ -36,4 +36,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.mailchimp_list_id = '9a1c3bd51d'
+  config.mailchimp_key = '6fdc67bd05fbce2ad61e5eb30fca0e01-us9'
 end
