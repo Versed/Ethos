@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  after_create do
+    subscribe_to_mailchimp
+  end
+
   def self.get_gravatars
     all.each do |user|
       if !user.avatar?
@@ -78,5 +82,17 @@ class User < ActiveRecord::Base
     activity.action = action
     activity.save
     activity
+  end
+
+  def subscribe_to_mailchimp testing=false
+    return true if (Rails.env.test? && !testing)
+    list_id = ENV['MAILCHIMP_ETHOS_LIST_ID']
+
+    response = Rails.configuration.mailchimp.lists.subscribe({
+      id: list_id,
+      email: {email: email},
+      double_optin: false,
+    })
+    response
   end
 end
