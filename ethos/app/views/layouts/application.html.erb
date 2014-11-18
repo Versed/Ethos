@@ -38,7 +38,9 @@
             <ul class="right">
               <% if user_signed_in? %>
                 <li class="avatar has-dropdown">
-                  <%= link_to "Profile <IMG> HasDropdown", profile_path(current_user) %>
+                  <%= link_to profile_path(current_user) do %>
+                    <%= avatar_profile_link current_user, {}, class: '' %>
+                  <% end %>
                   <ul class="dropdown">
                       <li>link_to settings_path(@user)</li>
                       <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
