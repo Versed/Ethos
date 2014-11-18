@@ -60,17 +60,17 @@ class UserTest < ActiveSupport::TestCase
   end
 
   context "#subscribe_to_mailchimp" do
-    let(:user) { create(:user) }
+    @user = User.new
     it "calls mailchimp correctly" do
       opts = {
-        email: {email: user.email},
+        email: {email: @user.email},
         id: ENV['MAILCHIMP_LIST_ID'],
         double_optin: false,
       }
 
-      clazz = Rails.configuration.mailchimp.lists.class
-      clazz.any_instance.should_receive(:subscribe).with(opts).once
-      user.send(:subscribe_to_mailchimp, true)
+      mail_list = Rails.configuration.mailchimp.lists.class
+      mail_list.any_instance.should_receive(:subscribe).with(opts).once
+      @user.send(:subscribe_to_mailchimp, true)
     end
   end
 end

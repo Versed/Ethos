@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
   end
 
   def subscribe_to_mailchimp testing=false
-    return true if (Rails.env.test? && !testing)
+    return true if (Rails.env.test? && !testing || Rails.env.development?)
     list_id = ENV['MAILCHIMP_LIST_ID']
 
     response = Rails.configuration.mailchimp.lists.subscribe({
