@@ -68,4 +68,35 @@ var pollActivity = function() {
   });
 };
 
+Handlebars.registerHelper('activityLink', function() {
+  var path, html;
+  var linkText = this.targetable_type.toLowerCase();
+
+  switch(linkText) {
+  case 'ideaboard':
+    path = Routes.status_path(this.targetable_id);
+    break;
+  case 'album':
+    path = Routes.album_path(this.profile_name, this.targetable_id);
+    break;
+  case 'picture':
+    path = Routes.album_picture_path(this.profile_name, this.targetabl.album_id, this.targetable_id);
+    break;
+  case 'userfriendship':
+    path = Routes.profile_path(this.profile_name);
+    linkText = "friend";
+    break;
+  }
+
+  if (this.action === 'deleted') {
+    path = '#';
+  }
+
+  html = '<li><a href=' + path + '>' + this.user_name + ' ' + this.action + ' a ' +
+    linkText + '</a></li>';
+
+  return new Handlebars.SafeString(html);
+});
+
 window.pollInterval = window.setInterval(pollActivity, 5000);
+pollActivity();

@@ -18,4 +18,20 @@ class Activity < ActiveRecord::Base
 
     collection.page(options[:page])
   end
+
+  def user_name
+    user.full_name
+  end
+
+  def profile_name
+    user.username
+  end
+
+  def as_json(options={})
+    super(
+      only: [:action, :id, :targetable_id, :targetable_type, :created_at],
+      include: :targetable,
+      methods: [:user_name, :profile_name]
+    ).merge(options)
+  end
 end
