@@ -27,7 +27,6 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @like = Like.where(:ideaboard_id => @ideaboard.id, :user_id => current_user.id)
 
     if @like.destroy
       redirect_to ideaboard_path(@ideaboard)
@@ -40,6 +39,7 @@ class LikesController < ApplicationController
   private
   def setup_ideaboard
     @ideaboard = Ideaboard.find(params[:id])
+    @like = Like.where(:ideaboard_id => @ideaboard.id, :user_id => current_user.id)
   end
 
   def add_breadcrumbs
