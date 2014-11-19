@@ -34,6 +34,17 @@ var addActivity = function(item) {
 
   if (!found) {
     window.loadedActivities.push(item);
+    window.loadedActivities.sort(function(a, b) {
+      if (a.created_at > b.created_at) {
+        return -1;
+      }
+
+      if (a.created_at < b.created_at) {
+        return 1;
+      }
+
+      return 0;
+    });
   }
 
   return item;
@@ -42,7 +53,10 @@ var addActivity = function(item) {
 var renderActivities = function() {
   var source = $('#activities-template').html();
   var template = Handlebars.compile(source);
-  var html = template({activities: window.loadedActivities});
+  var html = template({
+    activities: window.loadedActivities,
+    count: window.loadedActivities.length
+  });
   var activityFeed = $('#activity-feed');
   activityFeed.empty();
   activityFeed.addClass('has-dropdown');
@@ -51,7 +65,7 @@ var renderActivities = function() {
 
 var pollActivity = function() {
   $.ajax({
-    url: Routes.activites_path({format: 'json', since: window.lastFetch}),
+    url: Routes.activities_path({format: 'json', since: window.lastFetch}),
     type: 'GET',
     dataType: 'json',
     success: function(data) {
@@ -68,13 +82,17 @@ var pollActivity = function() {
   });
 };
 
+Handlebars.registerHelper('activityFeedLink', function() {
+  return new Handlebars.SafeString(Routes.activities_path());
+});
+
 Handlebars.registerHelper('activityLink', function() {
   var path, html;
   var linkText = this.targetable_type.toLowerCase();
 
   switch(linkText) {
   case 'ideaboard':
-    path = Routes.status_path(this.targetable_id);
+    path = Routes.ideaboard_path(this.targetable_id);
     break;
   case 'album':
     path = Routes.album_path(this.profile_name, this.targetable_id);
@@ -84,7 +102,7 @@ Handlebars.registerHelper('activityLink', function() {
     break;
   case 'userfriendship':
     path = Routes.profile_path(this.profile_name);
-    linkText = "friend";
+    linkText = 'friend';
     break;
   }
 
