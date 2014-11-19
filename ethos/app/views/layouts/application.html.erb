@@ -27,12 +27,14 @@
               <li class="divider"></li>
               <li><%= link_to "Home", ideaboards_path %></li>
               <li class="divider"></li>
-              <li><%= link_to "Ideaboards", ideaboards_list_path(current_user) %></li>
-              <li class="divider"></li>
-              <li><%= link_to "Campus Connects", users_list_path %></li>
-              <li class="divider"></li>
-              <li id="activity-feed"><%= link_to "Activity", activities_path %></li>
-              <li class="divider"></li>
+              <% if signed_in? %>
+                <li><%= link_to "Ideaboards", ideaboards_list_path(current_user) %></li>
+                <li class="divider"></li>
+                <li><%= link_to "Campus Connects", users_list_path %></li>
+                <li class="divider"></li>
+                <li id="activity-feed"><%= link_to "Activity", activities_path %></li>
+                <li class="divider"></li>
+              <% end %>
               <!-- <li>link_to "Messages", messages_path(@user)</li> -->
               <li class="divider"></li>
             </ul>
@@ -90,11 +92,16 @@
     <%= javascript_include_tag "application" %>
 
     <script id="activities-template" type="text/x-handlebars-template">
-      <ul class="has-dropdown">
-      {{#each activities}}
-        <li><a href="#">{{this.username}} {{this.action}} a {{this.targetable_type}}</a></li>
-      {{/each}}
-      </ul>
+      <div class="has-dropdown">
+        <a href="{{activityFeedLink}}">Activity ({{count}})</a>
+        <ul class="dropdown">
+        {{#each activities}}
+          {{activityLink}}
+        {{/each}}
+        <li class="divider"></li>
+        <li><a href="{{activityFeedLink}}">View feed</a></li>
+        </ul>
+      </div>
     </script>
   </body>
 </html>
