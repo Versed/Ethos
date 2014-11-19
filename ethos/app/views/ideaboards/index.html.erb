@@ -22,9 +22,18 @@
           <hr>
           <div class="like row detail">
             <div class="large-4 columns">
-              <%= link_to "likes", likes_path('ideaboards', ideaboard) %>
+              <% if can_like?(ideaboard) %>
+                <%= link_to "like", likes_path('ideaboards', ideaboard) %>
+              <% end %>
+              <% if can_unlike?(ideaboard) %>
+                <%= link_to 'Unlike', like_path('ideaboards', ideaboard), method: :delete %>
+              <% end %>
             </div>
-            <!-- <a>Unlike</a> -->
+          </div>
+          <div class="row detail">
+            <div class="large-4 columns">
+              <%= "#{ideaboard.likes.count} likes" %>
+            </div>
           </div>
           <div class="row detail">
             <div class="large-12 columns">

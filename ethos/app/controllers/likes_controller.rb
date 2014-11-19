@@ -14,7 +14,7 @@ class LikesController < ApplicationController
     if @like.save
       flash[:success] = "You liked #{@ideaboard.title}"
       current_user.create_activity(@ideaboard, 'liked')
-      redirect_to ideaboard_path(@ideaboard)
+      redirect_to(:back)
     else
       flash[:error] = "There was an error. Please try again."
       redirect_to likes_path('ideaboards', @ideaboard)
@@ -26,7 +26,7 @@ class LikesController < ApplicationController
 
     if @like.destroy
       flash[:success] = "You unliked #{@ideaboard.title}"
-      redirect_to ideaboard_path(@ideaboard)
+      redirect_to(:back)
     else
       flash[:error] = "There was an error. Please try again."
       redirect_to ideaboard_path(@ideaboard)
