@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141114182658) do
+ActiveRecord::Schema.define(version: 20141119191625) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -66,6 +66,14 @@ ActiveRecord::Schema.define(version: 20141114182658) do
   end
 
   add_index "ideaboards", ["user_id"], name: "index_ideaboards_on_user_id"
+
+  create_table "likes", force: true do |t|
+    t.integer "ideaboard_id"
+    t.integer "user_id"
+    t.integer "like_id"
+  end
+
+  add_index "likes", ["ideaboard_id"], name: "index_likes_on_ideaboard_id"
 
   create_table "pictures", force: true do |t|
     t.integer  "album_id"

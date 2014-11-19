@@ -20,12 +20,11 @@
           <p class="description"><%= ideaboard.description %>
 
           <hr>
-          <div class="like">
-            <a>Like</a>
+          <div class="like row detail">
+            <div class="large-4 columns">
+              <%= link_to "likes", likes_path('ideaboards', ideaboard) %>
+            </div>
             <!-- <a>Unlike</a> -->
-          </div>
-          <div class="row detail">
-            <div class="large-4 columns">0 Likes</div>
           </div>
           <div class="row detail">
             <div class="large-12 columns">

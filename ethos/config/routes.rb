@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       resources :pictures
     end
 
+    resources :likes, :only => [:index, :create, :destroy]
     resources :collaborations
   end
 

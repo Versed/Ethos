@@ -1,0 +1,23 @@
+<%= @likes.count %> likes
+
+<% @likes.each do |like| %>
+  <%= like.user_id %>
+<% end %>
+
+<% if can_like?(@ideaboard) %>
+  <%= simple_form_for @like, method: :create do |f| %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :ideaboard_id, :value => @ideaboard.id %>
+    <%= f.submit "Like", class: "button" %>
+  <% end %>
+<% end %>
+wat
+<%= @ideaboard.likes.include?(current_user.id) %>
+
+<% if can_unlike?(@ideaboard) %>
+  <%= simple_form_for @like, method: :destroy do |f| %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :ideaboard_id, :value => @ideaboard.id %>
+    <%= f.submit "Unlike", class: "button" %>
+  <% end %>
+<% end %>
