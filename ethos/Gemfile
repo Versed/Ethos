@@ -28,11 +28,13 @@ end
 group :test do
   gem 'shoulda'
   gem 'factory_girl_rails'
+  gem 'capybara'
 end
 
 group :development, :test do
   gem 'sqlite3'
   gem 'log_buddy'
+  gem 'rspec-rails'
 end
 
 group :assets do
