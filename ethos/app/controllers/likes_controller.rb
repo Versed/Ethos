@@ -11,18 +11,13 @@ class LikesController < ApplicationController
   def create
     @like = Like.new(like_params)
 
-    if can_like?
-      if @like.save
-        flash[:success] = "You liked #{@ideaboard.title}"
-        current_user.create_activity(@ideaboard, 'liked')
-        redirect_to ideaboard_path(@ideaboard)
-      else
-        flash[:error] = "There was an error. Please try again."
-        redirect_to likes_path('ideaboards', @ideaboard)
-      end
-    else
-      flash[:error] = "You have already liked this ideaboard."
+    if @like.save
+      flash[:success] = "You liked #{@ideaboard.title}"
+      current_user.create_activity(@ideaboard, 'liked')
       redirect_to ideaboard_path(@ideaboard)
+    else
+      flash[:error] = "There was an error. Please try again."
+      redirect_to likes_path('ideaboards', @ideaboard)
     end
   end
 
@@ -50,13 +45,5 @@ class LikesController < ApplicationController
 
   def like_params
     params.require(:like).permit(:ideaboard_id, :user_id)
-  end
-
-  def can_like?
-    signed_in? && !@ideaboard.likes.include?(current_user.id)
-  end
-
-  def can_unlike?
-    signed_in? && @ideaboard.likes.include?(current_user.id)
   end
 end
