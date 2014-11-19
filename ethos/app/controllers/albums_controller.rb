@@ -1,6 +1,6 @@
 class AlbumsController < ApplicationController
+  before_filter :authenticate_user!, only: [:create, :new, :update, :edit, :destroy]
   before_action :set_info
-  before_filter :authenicate_user!, only: [:create, :new, :update, :edit, :destroy]
   before_filter :ensure_proper_user, only: [:edit, :new, :create, :update, :destroy]
   before_filter :add_breadcrumbs
 
