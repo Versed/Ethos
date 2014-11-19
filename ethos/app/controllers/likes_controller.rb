@@ -22,8 +22,10 @@ class LikesController < ApplicationController
   end
 
   def destroy
+    @like = @ideaboard.likes.find_by_user_id(current_user.id)
 
     if @like.destroy
+      flash[:success] = "You unliked #{@ideaboard.title}"
       redirect_to ideaboard_path(@ideaboard)
     else
       flash[:error] = "There was an error. Please try again."
