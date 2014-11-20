@@ -8,11 +8,10 @@ class Activity < ActiveRecord::Base
     options[:page] ||= 1
     friend_ids = user.friends.map(&:id).push(user.id)
     collaborators_ids = user.ideaboards.map do |ideaboard|
-      ideaboard.collaborators.map(&:id)
+      ideaboard.collaborations.map(&:id)
     end
 
     activity_list = friend_ids + collaborators_ids
-
     collection = where("user_id in (?)", activity_list)
       .order("created_at desc")
 
