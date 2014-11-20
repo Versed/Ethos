@@ -1,25 +1,68 @@
-<%= @ideaboard.title %>, <%= @ideaboard.user.full_name %>, <%= @ideaboard.description %>
+<div class="row">
+  <%= render partial: 'side_menu' %>
 
-<% if @ideaboard.document && @ideaboard.document.attachment? %>
-  <%= ideaboard_document_link @ideaboard %>
-<% end %>
+  <div class="large-9 larege-offset-3 columns cover-page">
+    <div>
+      Application Info Here
+    </div>
 
- <% if @albums %>
-  <% @albums[0..3].each do |album| %>
-    <%= album.ideaboard %>
-    <%= album.title %>
-    <%= link_to 'Show', album %>
-    <% if can_edit_album(album) %>
-      | <%= link_to 'Edit', edit_album_path(album) %>
-      | <%= link_to 'Delete', album, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <img class="logo" src="img_tag(foundation_paperclip_picture)">
+    <div class="title"> <%= @ideaboard.title %> </div>
+
+    <ul class="link-list">
+      <li>Test</li>
+    </ul>
+
+    <div class="description section"> <%= @ideaboard.description %> </div>
+
+    <div>
+      <h4 class="subheader"> Skills Needed </h4>
+      <ul class="link-list">
+        <li>Test</li> <!-- if can edit -> class="fa fa-times-circle-o" to delete -->
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="subheader">Collaborators</h4>
+      <!-- link to pending applications if can edit -->
+      <ul class="link-list friendsList clearfix">
+        <li> <%= @ideaboard.user.full_name %></li>
+        <% @ideaboard.collaborations.each do |collaboration| %>
+          <li> <%= collaboration.user_id %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="pinned">
+      <div class="large-12 columns">
+        <div class="section">
+        </div>
+      </div>
+    </div>
+
+
+    <% if @ideaboard.document && @ideaboard.document.attachment? %>
+      <%= ideaboard_document_link @ideaboard %>
     <% end %>
-  <% end %>
-<% end %>
-<%= link_to 'All Albums', albums_path('ideaboards', @ideaboard) %>
-<%= link_to 'Likes', likes_path('ideaboards', @ideaboard) %>
 
-<% if signed_in? && current_user == @ideaboard.user %>
-  <%= link_to "New Album", new_album_path('ideaboards', @ideaboard) %>
-<% end %>
+     <% if @albums %>
+      <% @albums[0..3].each do |album| %>
+        <%= album.ideaboard %>
+        <%= album.title %>
+        <%= link_to 'Show', album %>
+        <% if can_edit_album(album) %>
+          | <%= link_to 'Edit', edit_album_path(album) %>
+          | <%= link_to 'Delete', album, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <%= link_to 'All Albums', albums_path('ideaboards', @ideaboard) %>
+    <%= link_to 'Likes', likes_path('ideaboards', @ideaboard) %>
 
-<%= link_to "Collaborators", collaborations_path('ideaboards', @ideaboard) %>
+    <% if signed_in? && current_user == @ideaboard.user %>
+      <%= link_to "New Album", new_album_path('ideaboards', @ideaboard) %>
+    <% end %>
+
+    <%= link_to "Collaborators", collaborations_path('ideaboards', @ideaboard) %>
+  </div>
+</div>
