@@ -9,9 +9,29 @@
     <img class="logo" src="img_tag(foundation_paperclip_picture)">
     <div class="title"> <%= @ideaboard.title %> </div>
 
-    <ul class="link-list">
-      <li class="tag">Test</li>
-    </ul>
+    <div>
+      <h4 class="subheader"> Tags </h4>
+      <ul class="link-list">
+        <% @ideaboard.tags.each do |tag| %>
+          <% if tag.name %>
+            <li class="tag">
+              <%= link_to "#{tag.name}", tag_path(tag.name) %>
+              <% if can_edit?(@ideaboard) %>
+                <i class="fa fa-times-circle-o">x</i>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+
+      <% if can_edit?(@ideaboard) %>
+        <%= simple_form_for @tag, method: :create, :url => ideaboard_tags_path('ideaboards', @ideaboard) do |f| %>
+         <%= f.hidden_field :ideaboard_id, :value => @ideaboard.id %>
+         <%= f.input :name %>
+         <%= f.submit "Add", class: "button" %>
+        <% end %>
+      <% end %>
+    </div>
 
     <div class="description section"> <%= @ideaboard.description %> </div>
 

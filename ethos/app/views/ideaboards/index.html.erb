@@ -3,47 +3,5 @@
     <%= render 'form' %>
   <% end %>
 
-  <% @ideaboards.each do |ideaboard| %>
-    <% if can_display_ideaboard?(ideaboard) %>
-      <div class="large-4 medium-6 small-12 columns end">
-        <div class="featured-idea">
-          <div class="row author">
-            <div class="large-4 small-4 columns">
-              <%= link_to profile_path(ideaboard.user) do %>
-                <%= ideaboard.user.full_name %>
-                <%= avatar_profile_link ideaboard.user, {}, class: '' %>
-              <% end %>
-            </div>
-          </div>
-          <%= link_to "#{ideaboard.title}", ideaboard_path(ideaboard) %>
-          <%= ideaboard_document_link ideaboard %>
-          <p class="description"><%= ideaboard.description %>
-
-          <hr>
-          <div class="like row detail">
-            <div class="large-4 columns">
-              <% if can_like?(ideaboard) %>
-                <%= link_to "like", likes_path('ideaboards', ideaboard) %>
-              <% end %>
-              <% if can_unlike?(ideaboard) %>
-                <%= link_to 'Unlike', like_path('ideaboards', ideaboard), method: :delete %>
-              <% end %>
-            </div>
-          </div>
-          <div class="row detail">
-            <div class="large-4 columns">
-              <%= "#{ideaboard.likes.count} likes" %>
-            </div>
-          </div>
-          <div class="row detail">
-            <div class="large-12 columns">
-              <div class="skills-needed">Skills needed:
-                <a> Programming </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
+  <%= render partial: 'preview' %>
 </div>

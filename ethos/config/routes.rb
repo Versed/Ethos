@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   root to: 'ideaboards#index'
 
   resources :ideaboards
+  resources :tags, only: [:index, :show]
   resources :activities, only: [:index]
   resources :user_friendships do
     member do
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
 
     resources :likes, :only => [:index, :create, :destroy]
     resources :collaborations
+    resources :tags, :only => [:create, :destroy], as: 'ideaboard_tags'
   end
 
   get '/users', to: 'user_friendships#list', as: 'users_list'

@@ -18,6 +18,7 @@ class IdeaboardsController < ApplicationController
 
   def show
     @ideaboard = Ideaboard.includes(:collaborations).find(params[:id])
+    @tag = @ideaboard.tags.new
 
     add_breadcrumb "Ideaboards", ideaboards_path
     add_breadcrumb @ideaboard.title
