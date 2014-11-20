@@ -65,6 +65,14 @@ class User < ActiveRecord::Base
     first_name + " " + last_name
   end
 
+  def context_name(user)
+    if user.id == self.id
+      return "You"
+    else
+      return full_name
+    end
+  end
+
   def has_blocked?(user)
     blocked_friends.include?(user)
   end
