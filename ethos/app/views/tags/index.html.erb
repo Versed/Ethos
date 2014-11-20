@@ -1,1 +1,11 @@
-Tags
+<div class="row section">
+  <ul>
+    <% @tags.each do |tag| %>
+      <li class="tag">
+        <%= link_to "#{tag.name}", tag_path(tag.name) %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= will_paginate @tags %>
+</div>

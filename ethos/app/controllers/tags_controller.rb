@@ -1,7 +1,9 @@
 class TagsController < ApplicationController
+  before_filter :add_breadcrumbs
 
   def index
-    @tags = Tag.all
+    params[:page] ||= 1
+    @tags = Tag.all.group('name').page(params[:page])
   end
 
   def create
@@ -16,6 +18,7 @@ class TagsController < ApplicationController
   end
 
   def show
+    add_breadcrumb params[:id]
     tags = Tag.where(name: params[:id])
     @ideaboards = tags.map { |tag| tag.ideaboard }
 
@@ -26,7 +29,12 @@ class TagsController < ApplicationController
   end
 
   private
-  def tag_params
-    params.require(:tag).permit(:ideaboard_id, :name)
-  end
+    def tag_params
+      params.require(:tag).permit(:ideaboard_id, :name)
+    end
+
+    def add_breadcrumbs
+      add_breadcrumb "Home", ideaboards_path
+      add_breadcrumb "Tags", tags_path
+    end
 end
