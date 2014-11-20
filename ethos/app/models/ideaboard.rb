@@ -5,6 +5,7 @@ class Ideaboard < ActiveRecord::Base
   has_many :pictures
   has_many :collaborations
   has_many :likes
+  has_many :tags
 
   accepts_nested_attributes_for :document
 

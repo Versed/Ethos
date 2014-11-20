@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119191625) do
+ActiveRecord::Schema.define(version: 20141120174328) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -90,6 +90,15 @@ ActiveRecord::Schema.define(version: 20141119191625) do
 
   add_index "pictures", ["album_id"], name: "index_pictures_on_album_id"
   add_index "pictures", ["ideaboard_id"], name: "index_pictures_on_ideaboard_id"
+
+  create_table "tags", force: true do |t|
+    t.integer  "ideaboard_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["ideaboard_id"], name: "index_tags_on_ideaboard_id"
 
   create_table "user_friendships", force: true do |t|
     t.datetime "created_at"
