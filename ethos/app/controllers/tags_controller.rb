@@ -28,6 +28,17 @@ class TagsController < ApplicationController
     end
   end
 
+  def destroy
+    @tag = Tag.find_by_name_and_ideaboard_id(:name => params[:tag_id], :ideaboard_id => params[:id])
+
+    if @tag.destroy
+    else
+      flash[:error] = "Error. Try again."
+    end
+
+    redirect_to(:back)
+  end
+
   private
     def tag_params
       params.require(:tag).permit(:ideaboard_id, :name)

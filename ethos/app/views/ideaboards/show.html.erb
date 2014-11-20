@@ -15,10 +15,12 @@
         <% @ideaboard.tags.each do |tag| %>
           <% if tag.name %>
             <li class="tag">
-              <%= link_to "#{tag.name}", tag_path(tag.name) %>
               <% if can_edit?(@ideaboard) %>
-                <i class="fa fa-times-circle-o">x</i>
+                <%= link_to ideaboard_tag_path('ideaboards', @ideaboard.id, tag.name), method: :delete do %>
+                  <i class='fa fa-times-circle-o'>x</i>
+                <% end %>
               <% end %>
+              <%= link_to "#{tag.name}", tag_path(tag.name) %>
             </li>
           <% end %>
         <% end %>
