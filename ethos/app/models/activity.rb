@@ -7,8 +7,13 @@ class Activity < ActiveRecord::Base
   def self.for_user(user, options={})
     options[:page] ||= 1
     friend_ids = user.friends.map(&:id).push(user.id)
+    collaborators_ids = user.ideaboards.map do |ideaboard|
+      ideaboard.collaborators.map(&:id)
+    end
 
-    collection = where("user_id in (?)", friend_ids)
+    activity_list = friend_ids + collaborators_ids
+
+    collection = where("user_id in (?)", activity_list)
       .order("created_at desc")
 
     if options[:since] && !options[:since].blank?
