@@ -26,20 +26,23 @@
       <h4 class="subheader">Collaborators</h4>
       <!-- link to pending applications if can edit -->
       <ul class="link-list friendsList clearfix">
-        <li> <%= @ideaboard.user.full_name %></li>
+        <li class="section large-3 columns portfolio-preview">
+          <%= link_to profile_path(@ideaboard.user) do %>
+            <%= avatar_profile_link @ideaboard.user, {}, class: '' %>
+            <%= @ideaboard.user.context_name(@ideaboard.user) %>
+          <% end %>
+        </li>
         <% @ideaboard.collaborations.each do |collaboration| %>
-          <li> <%= collaboration.user_id %></li>
+          <li class="section large-3 columns portfolio-preview">
+            <%= link_to profile_path(collaboration.user) do %>
+              <%= avatar_profile_link collaboration.user, {}, class: '' %>
+              <%= collaboration.user.context_name(collaboration.user) %>
+            <% end %>
+          </li>
         <% end %>
       </ul>
+      <%= link_to "See All", collaborations_path('ideaboards', @ideaboard) %>
     </div>
-
-    <div class="pinned">
-      <div class="large-12 columns">
-        <div class="section">
-        </div>
-      </div>
-    </div>
-
 
     <% if @ideaboard.document && @ideaboard.document.attachment? %>
       <%= ideaboard_document_link @ideaboard %>
@@ -63,6 +66,5 @@
       <%= link_to "New Album", new_album_path('ideaboards', @ideaboard) %>
     <% end %>
 
-    <%= link_to "Collaborators", collaborations_path('ideaboards', @ideaboard) %>
   </div>
 </div>
