@@ -29,7 +29,7 @@ class TagsController < ApplicationController
   end
 
   def destroy
-    @tag = Tag.find_by_name_and_ideaboard_id(:name => params[:tag_id], :ideaboard_id => params[:id])
+    @tag = Tag.find_by_name_and_ideaboard_id(params[:tag_id], params[:id])
 
     if @tag.destroy
     else
