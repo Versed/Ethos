@@ -1,6 +1,8 @@
 <div class="row">
   <% if signed_in? %>
-    <%= render 'form' %>
+    <div class="animation">
+      <%= render 'form' %>
+    </div>
   <% end %>
 
   <%= render partial: 'preview' %>
