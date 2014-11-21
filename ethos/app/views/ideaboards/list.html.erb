@@ -1,6 +1,9 @@
 
 <div class="row">
-  All | Followed | Mine | Contributor
+  <%= link_to "All", ideaboards_list_path(current_user) %>
+  | <%= link_to "Followed", ideaboards_list_path(current_user, :filter => "followed") %>
+  | <%= link_to "Mine", ideaboards_list_path(current_user, :filter => "mine") %>
+  | <%= link_to "Contributor", ideaboards_list_path(current_user, :filter => "contributor") %>
   <hr/>
   <% @ideaboards.each do |ideaboard| %>
     <div class="featured-idea">
@@ -27,4 +30,5 @@
       <% end %>
     </div>
   <% end %>
+  <%= will_paginate @ideaboards %>
 </div>

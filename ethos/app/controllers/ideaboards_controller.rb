@@ -13,7 +13,9 @@ class IdeaboardsController < ApplicationController
 
   def list
     params[:page] ||= 1
-    @ideaboards = current_user.ideaboards.page(params[:page]).order('created_at desc')
+    params[:filter] ||= "all"
+
+    @ideaboards = Ideaboard.filter_results(current_user, params)
     add_breadcrumb "Ideaboards", ideaboards_path
     add_breadcrumb "Mine"
   end

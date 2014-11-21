@@ -12,4 +12,23 @@ class Ideaboard < ActiveRecord::Base
 
   validates :title, presence: true, length: { minimum: 5 }
   validates :user, presence: true
+
+  def self.filter_results(user, options={})
+    options[:page] ||= 1
+    options[:filter] ||= "all"
+
+    case options[:filter]
+    when "mine"
+      collection = where("user_id in (?)", user.id)
+    when "followed"
+      collection = where("user_id in (?)", user.id)
+    when "contributor"
+      contribution_ids = user.collaborations.map(&:ideaboard_id)
+      collection = where("id in (?)", contribution_ids)
+    else
+      collection = where("user_id in (?)", user.id)
+    end
+
+    collection.page(options[:page]).order('created_at desc')
+  end
 end
