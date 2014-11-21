@@ -4,29 +4,27 @@
   <hr/>
   <% @ideaboards.each do |ideaboard| %>
     <div class="featured-idea">
-      <div class="large-4 columns">
-        <div class="row author">
-          <div class="larege-4 small-4 columns">
+      <div class="large-2 columns">
+        <div class="author">
+          <div>
             <%= link_to profile_path(ideaboard.user) do %>
-              <%= ideaboard.user.full_name %>
               <%= avatar_profile_link ideaboard.user, {}, class: '' %>
+              <p><%= ideaboard.user.full_name %></p>
             <% end %>
           </div>
         </div>
-        <%= link_to "#{ideaboard.title}", ideaboard_path(ideaboard) %>
-        <%= ideaboard_document_link ideaboard %>
-        <p class="description"><%= ideaboard.description %>
       </div>
-      <div class="large-6 columns">
-        <div class="large-4 columns">0 Likes</div>
-        <div class="row detail">
-          <div class="large-12 columns">
-            <div class="skills-needed">Skills needed:
-              <a> Programming </a>
-            </div>
-          </div>
+      <%= link_to ideaboard_path(ideaboard) do %>
+        <div class="large-4 columns">
+          <h3><%= ideaboard.title %></h3>
+          <%= ideaboard_document_link ideaboard %>
         </div>
-      </div>
+        <div class="large-6 columns">
+          <p><%= ideaboard.description %></p>
+          <hr>
+          <p><%= ideaboard.likes.count %> Likes</p>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>

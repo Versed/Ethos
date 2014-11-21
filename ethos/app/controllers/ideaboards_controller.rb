@@ -2,7 +2,8 @@ class IdeaboardsController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
 
   def index
-    @ideaboards = Ideaboard.order('created_at desc').all
+    params[:page] ||= 1
+    @ideaboards = Ideaboard.page(params[:page]).order('created_at desc').all
 
     if signed_in?
       @ideaboard = current_user.ideaboards.new
@@ -11,7 +12,8 @@ class IdeaboardsController < ApplicationController
   end
 
   def list
-    @ideaboards = current_user.ideaboards.order('created_at desc')
+    params[:page] ||= 1
+    @ideaboards = current_user.ideaboards.page(params[:page]).order('created_at desc')
     add_breadcrumb "Ideaboards", ideaboards_path
     add_breadcrumb "Mine"
   end

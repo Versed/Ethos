@@ -8,6 +8,7 @@ class Ideaboard < ActiveRecord::Base
   has_many :tags
 
   accepts_nested_attributes_for :document
+  self.per_page = 30
 
   validates :title, presence: true, length: { minimum: 5 }
   validates :user, presence: true

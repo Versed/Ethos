@@ -1,47 +1,53 @@
-<% @ideaboards.each do |ideaboard| %>
-  <% if can_display_ideaboard?(ideaboard) %>
-    <div class="large-4 medium-6 small-12 columns end">
-      <div class="featured-idea">
-        <div class="row author">
-          <div class="large-4 small-4 columns">
-            <%= link_to profile_path(ideaboard.user) do %>
-              <%= ideaboard.user.full_name %>
-              <%= avatar_profile_link ideaboard.user, {}, class: '' %>
-            <% end %>
+<div class="row">
+  <% @ideaboards.each do |ideaboard| %>
+    <% if can_display_ideaboard?(ideaboard) %>
+      <div class="large-4 medium-6 small-12 columns end">
+        <div class="featured-idea">
+          <div class="row author">
+            <div class="large-4 small-4 columns">
+              <%= link_to profile_path(ideaboard.user) do %>
+                <%= avatar_profile_link ideaboard.user, {}, class: '' %>
+                <p><%= ideaboard.user.full_name %></p>
+              <% end %>
+            </div>
+            <div class="large-8 small-8 columns">
+              <%= link_to ideaboard_path(ideaboard) do %>
+                <h3><%= ideaboard.title %></h3>
+                <%= ideaboard_document_link ideaboard %>
+                <p class="description"><%= ideaboard.description %></p>
+              <% end %>
+            </div>
           </div>
-          <div class="large-8 small-8 columns">
-            <%= link_to ideaboard_path(ideaboard) do %>
-              <h3><%= ideaboard.title %></h3>
-              <%= ideaboard_document_link ideaboard %>
-              <p class="description"><%= ideaboard.description %>
-            <% end %>
-          </div>
-        </div>
 
-        <hr>
-        <div class="like row detail">
-          <div class="large-4 columns">
-            <% if can_like?(ideaboard) %>
-              <%= link_to "like", likes_path('ideaboards', ideaboard) %>
-            <% end %>
-            <% if can_unlike?(ideaboard) %>
-              <%= link_to 'Unlike', like_path('ideaboards', ideaboard), method: :delete %>
-            <% end %>
+          <hr>
+          <div class="like row detail">
+            <div class="large-4 columns">
+              <% if can_like?(ideaboard) %>
+                <%= link_to "like", likes_path('ideaboards', ideaboard) %>
+              <% end %>
+              <% if can_unlike?(ideaboard) %>
+                <%= link_to 'Unlike', like_path('ideaboards', ideaboard), method: :delete %>
+              <% end %>
+            </div>
           </div>
-        </div>
-        <div class="row detail">
-          <div class="large-4 columns">
-            <%= "#{ideaboard.likes.count} likes" %>
+          <div class="row detail">
+            <div class="large-4 columns">
+              <%= "#{ideaboard.likes.count} likes" %>
+            </div>
           </div>
-        </div>
-        <div class="row detail">
-          <div class="large-12 columns">
-            <div class="skills-needed">Skills needed:
-              <a> Programming </a>
+          <div class="row detail">
+            <div class="large-12 columns">
+              <div class="skills-needed">Skills needed:
+                <a> Programming </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
+
+<div class="row">
+  <%= will_paginate @ideaboards %>
+</div>
