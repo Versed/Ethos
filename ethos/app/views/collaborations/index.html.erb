@@ -1,8 +1,27 @@
-Collaborators for <%= @ideaboard.title %>
+<div class="row">
+  <h4 class="subheader">Collaborators for <%= @ideaboard.title %></h4>
 
-<% if signed_in? && @ideaboard.user == current_user %>
-<% end %>
+  <% if signed_in? && @ideaboard.user == current_user %>
+  <% end %>
 
-<% if can_collaborate?(@ideaboard) %>
-  <%= link_to "Apply to be a Collaborator", new_collaboration_path('ideaboards', @ideaboard) %>
-<% end %>
+  <% if can_collaborate?(@ideaboard) %>
+    <%= link_to "Apply to be a Collaborator", new_collaboration_path('ideaboards', @ideaboard) %>
+  <% end %>
+
+  <ul class="link-list friendsList clearfix">
+    <li class="section large-3 columns portfolio-preview">
+      <%= link_to profile_path(@ideaboard.user) do %>
+        <%= avatar_profile_link @ideaboard.user, {}, class: '' %>
+        <%= @ideaboard.user.context_name(@ideaboard.user) %>
+      <% end %>
+    </li>
+    <% @ideaboard.collaborations.each do |collaboration| %>
+      <li class="section large-3 columns portfolio-preview">
+        <%= link_to profile_path(collaboration.user) do %>
+          <%= avatar_profile_link collaboration.user, {}, class: '' %>
+          <%= collaboration.user.context_name(collaboration.user) %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

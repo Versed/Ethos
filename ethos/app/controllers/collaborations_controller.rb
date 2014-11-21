@@ -2,7 +2,6 @@ class CollaborationsController < ApplicationController
   before_filter :setup_ideaboard
 
   def index
-    @collaborations = @ideaboard.collaborations.all
   end
 
   def new
@@ -24,7 +23,7 @@ class CollaborationsController < ApplicationController
 
   private
   def setup_ideaboard
-    @ideaboard = Ideaboard.find(params[:id])
+    @ideaboard = Ideaboard.includes(:collaborations).find(params[:id])
   end
 
   def collaboration_params
