@@ -23,10 +23,22 @@
     text-align: center;
   }
 
+  h3 {
+    -ms-word-break: break-all;
+        word-break: break-all;
+        word-break: break-word;
+
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+        -ms-hyphens: auto;
+            hyphens: auto;
+  }
+
   .description {
     padding-top: 5px;
     border-top: 1px solid $fontColor;
     max-height: 200px;
+    word-wrap: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
   }

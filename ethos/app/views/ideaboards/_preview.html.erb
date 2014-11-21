@@ -9,10 +9,14 @@
               <%= avatar_profile_link ideaboard.user, {}, class: '' %>
             <% end %>
           </div>
+          <div class="large-8 small-8 columns">
+            <%= link_to ideaboard_path(ideaboard) do %>
+              <h3><%= ideaboard.title %></h3>
+              <%= ideaboard_document_link ideaboard %>
+              <p class="description"><%= ideaboard.description %>
+            <% end %>
+          </div>
         </div>
-        <%= link_to "#{ideaboard.title}", ideaboard_path(ideaboard) %>
-        <%= ideaboard_document_link ideaboard %>
-        <p class="description"><%= ideaboard.description %>
 
         <hr>
         <div class="like row detail">
