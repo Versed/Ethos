@@ -1,17 +1,87 @@
-<%= @user.full_name %>
+<div class="portfolio">
+  <div class="header">
+    <div class="row">
+      <div class="large-3 columns">
+        <%= avatar_profile_link @user, {}, class: '' %>
+      </div>
 
-<% if signed_in? && current_user != @user %>
-  <div id="friend-status">
-    <% if current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
-      <%= link_to "Edit Friendship", edit_user_friendship_path(friend_id: @user), class: "button" %>
-    <% else %>
-      <%= link_to "Connect", new_user_friendship_path(friend_id: @user), class: "button", id: "add-friendship",
-          data: { friend_id: @user.to_param } %>
-    <% end %>
+      <div class="large-9 columns">
+        <div class="cover">
+          <%= avatar_profile_link @user, {}, class: '' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-3 columns">
+        <h3><%= @user.full_name %></h3>
+        <% if signed_in? && current_user == @user %>
+          <%= link_to "Edit profile", edit_user_registration_path %>
+        <% end %>
+      </div>
+
+      <div class="large-3 columns end">
+        <div class="stat">Connections <span><%= @user.user_friendships.count %></span></div>
+      </div>
+    </div>
   </div>
-<% end %>
 
-<% @user.ideaboards.each do |ideaboard| %>
-  <%= ideaboard.title %>
-<% end %>
+  <div class="row">
+    <div class="large-3 columns">
+      <% if signed_in? && current_user != @user %>
+        <div id="friend-status">
+          <% if current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
+            <%= link_to "Edit Friendship", edit_user_friendship_path(friend_id: @user), class: "button" %>
+          <% else %>
+            <%= link_to "Connect", new_user_friendship_path(friend_id: @user), class: "button", id: "add-friendship",
+                data: { friend_id: @user.to_param } %>
+          <% end %>
+        </div>
+      <% end %>
 
+      <h4 class="subheader">About</h4>
+        <div>
+          <h5>My Interests</h5>
+        </div>
+
+        <h4 class="subheader">Skills</h4>
+
+        <div>
+          <h4 class="subheader">Connections</h4>
+          <ul class="link-list friendsList"></ul>
+      </div>
+    </div>
+
+    <div class="large-9 columns">
+      <tabset class="section-container">
+       <tab>
+          <accordion>
+            Collaborations
+          </accordion>
+        </tab>
+        <tab>
+          Projects
+            <% @user.ideaboards.each do |ideaboard| %>
+              <%= ideaboard.title %>
+            <% end %>
+        </tab>
+      </tabset>
+
+      <h5>Feed</h5>
+      <div class="feed">
+        <form>
+          <div class="row collapse">
+            <div class="small-12 columns">
+              <input type="text" placeholder="Post something!" />
+            </div>
+          </div>
+        </form>
+        <ul class="link-list social">
+          <li>
+            <div></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
