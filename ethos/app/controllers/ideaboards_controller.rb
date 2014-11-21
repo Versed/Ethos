@@ -18,6 +18,18 @@ class IdeaboardsController < ApplicationController
     add_breadcrumb "Mine"
   end
 
+  def about
+    @ideaboard = Ideaboard.find(params[:id])
+  end
+
+  def activity
+    @ideaboard = Ideaboard.find(params[:id])
+  end
+
+  def discussion
+    @ideaboard = Ideaboard.find(params[:id])
+  end
+
   def show
     @ideaboard = Ideaboard.includes(:collaborations).find(params[:id])
     @tag = @ideaboard.tags.new

@@ -14,7 +14,14 @@ Rails.application.routes.draw do
 
   root to: 'ideaboards#index'
 
-  resources :ideaboards
+  resources :ideaboards do
+    member do
+      get 'about'
+      get 'discussion'
+      get 'activity'
+    end
+  end
+
   resources :tags, only: [:index, :show]
   resources :activities, only: [:index]
   resources :user_friendships do
