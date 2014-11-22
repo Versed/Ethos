@@ -61,7 +61,7 @@ class IdeaboardsController < ApplicationController
   end
 
   def update
-    @ideaboard = current_user.ideaboards.find(ideaboard_params)
+    @ideaboard = current_user.ideaboards.find(params[:id])
     @document = @ideaboard.document
 
     @ideaboard.transaction do
@@ -72,6 +72,8 @@ class IdeaboardsController < ApplicationController
       unless @ideaboard.valid? || (@ideaboard.valid? && @document && !@document.valid?)
         raise ActiveRecord::Rollback
       end
+
+      redirect_to ideaboard_path(@ideaboard)
     end
 
     rescue ActiveRecord::Rollback

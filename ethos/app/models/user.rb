@@ -65,8 +65,8 @@ class User < ActiveRecord::Base
     first_name + " " + last_name
   end
 
-  def context_name(user)
-    if user.id == self.id
+  def context_name(current_user)
+    if self.id == current_user.id
       return "You"
     else
       return full_name
