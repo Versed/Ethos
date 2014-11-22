@@ -26,7 +26,8 @@ class Ideaboard < ActiveRecord::Base
       contribution_ids = user.collaborations.map(&:ideaboard_id)
       collection = where("id in (?)", contribution_ids)
     else
-      collection = where("user_id in (?)", user.id)
+      contribution_ids = user.collaborations.map(&:ideaboard_id)
+      collection = where("id in (?) or user_id in (?)", contribution_ids, user.id)
     end
 
     collection.page(options[:page]).order('created_at desc')

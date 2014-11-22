@@ -5,7 +5,7 @@
   <% end %>
 
   <% if can_collaborate?(@ideaboard) %>
-    <%= link_to "Apply to be a Collaborator", new_collaboration_path('ideaboards', @ideaboard) %>
+    <%= link_to "Apply to be a Collaborator", new_collaboration_path('ideaboards', @ideaboard), class: 'button' %>
   <% end %>
 
   <ul class="link-list friendsList clearfix">

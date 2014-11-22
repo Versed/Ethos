@@ -9,6 +9,15 @@ class CollaborationsController < ApplicationController
   end
 
   def create
+    @collaboration = Collaboration.request(current_user, @ideaboard)
+
+    if @collaboration.new_record?
+      flash[:error] = "There was a problem creating the collaboration request."
+      redirect_to ideaboard_path(@ideaboard)
+    else
+      flash[:success] = "Collaboration request sent."
+      redirect_to ideaboard_path(@ideaboard)
+    end
   end
 
   def accept

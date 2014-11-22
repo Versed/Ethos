@@ -53,19 +53,34 @@
     </div>
 
     <div class="large-9 columns">
-      <tabset class="section-container">
-       <tab>
-          <accordion>
-            Collaborations
-          </accordion>
-        </tab>
-        <tab>
-          Projects
-            <% @user.ideaboards.each do |ideaboard| %>
-              <%= ideaboard.title %>
+      <div class="section-container">
+        <dl class="tabs" data-tab>
+          <dd class="active"><a href="#projects">Projects</a></dd>
+          <dd><a href="#collaborations">Collaborations</a></dd>
+        </dl>
+      </div>
+      <div class="tabs-content">
+        <div class="content active section" id="projects">
+          <% @ideaboards.each do |ideaboard| %>
+            <%= link_to ideaboard_path(ideaboard) do %>
+              <div class="idea-thumb">
+                <h5 class="subheader"><%= ideaboard.title %></h5>
+                <p><%= ideaboard.description %></p>
+              </div>
             <% end %>
-        </tab>
-      </tabset>
+          <% end %>
+        </div>
+        <div class="content section" id="collaborations">
+          <% @user.collaborations.each do |collaboration| %>
+            <%= link_to ideaboard_path(collaboration.ideaboard_id) do %>
+              <div class="idea-thumb">
+                <h5 class="subheader"><%= collaboration.ideaboard.title %></h5>
+                <p><%= collaboration.ideaboard.description %></p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
 
       <h5>Feed</h5>
       <div class="feed">

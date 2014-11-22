@@ -10,7 +10,7 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def self.request(ideaboard, user)
+  def self.request(user, ideaboard)
     transaction do
       collaboration = create(user: user, ideaboard: ideaboard, state: 'requested')
       collaboration

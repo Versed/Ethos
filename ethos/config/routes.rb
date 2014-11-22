@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     end
 
     resources :likes, :only => [:index, :create, :destroy]
-    resources :collaborations
+    resources :collaborations, param: 'collaboration_id'
     resources :tags, :only => [:create, :destroy], as: 'ideaboard_tags', param: 'tag_id'
   end
 
