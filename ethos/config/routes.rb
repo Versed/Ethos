@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   scope ":ideaboard/:id" do
     resources :albums do
-      resources :pictures
+      resources :pictures, param: 'picture_id'
     end
 
     resources :likes, :only => [:index, :create, :destroy]

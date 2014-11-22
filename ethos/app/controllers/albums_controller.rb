@@ -21,7 +21,7 @@ class AlbumsController < ApplicationController
   end
 
   def create
-    @album = Album.new(album_params)
+    @album = @ideaboard.albums.new(album_params)
 
     if @album.save
       current_user.create_activity(@album, 'created')
@@ -53,7 +53,7 @@ class AlbumsController < ApplicationController
     def add_breadcrumbs
       add_breadcrumb "Ideaboards", ideaboards_path
       add_breadcrumb @ideaboard.title, ideaboard_path(@ideaboard)
-      add_breadcrumb "Albums", albums_path
+      add_breadcrumb "Albums"
     end
 
     def ensure_proper_user

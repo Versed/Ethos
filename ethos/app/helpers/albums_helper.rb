@@ -8,6 +8,6 @@ module AlbumsHelper
   end
 
   def can_edit_album?(album)
-    signed_in? && current_user == album.user
+    signed_in? && current_user.id == album.ideaboard.user_id
   end
 end
