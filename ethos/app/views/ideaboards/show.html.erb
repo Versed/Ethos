@@ -16,7 +16,7 @@
           <% if tag.name %>
             <li class="tag">
               <% if can_edit?(@ideaboard) %>
-                <%= link_to ideaboard_tag_path('ideaboards', @ideaboard.id, tag.name), method: :delete do %>
+                <%= link_to tag_path('ideaboards', @ideaboard.id, tag.name), method: :delete do %>
                   <i class='fa fa-times-circle-o'>x</i>
                 <% end %>
               <% end %>
@@ -27,10 +27,10 @@
       </ul>
 
       <% if can_edit?(@ideaboard) %>
-        <%= simple_form_for @tag, method: :create, :url => ideaboard_tags_path('ideaboards', @ideaboard) do |f| %>
-         <%= f.hidden_field :ideaboard_id, :value => @ideaboard.id %>
-         <%= f.input :name %>
-         <%= f.submit "Add", class: "button" %>
+        <%= simple_form_for @tag, method: :create, :url => tags_path do |f| %>
+          <%= f.input :name %>
+          <%= f.hidden_field :ideaboard_id, :value => @ideaboard.id %>
+          <%= f.submit "Add", class: "button" %>
         <% end %>
       <% end %>
     </div>

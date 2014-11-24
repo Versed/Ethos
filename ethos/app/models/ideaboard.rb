@@ -5,7 +5,8 @@ class Ideaboard < ActiveRecord::Base
   has_many :pictures
   has_many :collaborations
   has_many :likes
-  has_many :tags
+  has_many :skills, as: :skillable
+  has_many :tags, as: :tagable
 
   accepts_nested_attributes_for :document
   self.per_page = 30

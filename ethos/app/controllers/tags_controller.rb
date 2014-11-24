@@ -6,21 +6,11 @@ class TagsController < ApplicationController
     @tags = Tag.all.group('name').page(params[:page])
   end
 
-  def create
-    @ideaboard = Ideaboard.find_by_id(params[:id])
-    @tag = @ideaboard.tags.new(tag_params)
-
-    if @tag.save
-    else
-      flash[:error] = "Error, please try again"
-    end
-    redirect_to ideaboard_path(@ideaboard)
-  end
-
   def show
     add_breadcrumb params[:id]
     tags = Tag.where(name: params[:id])
-    @ideaboards = tags.map { |tag| tag.ideaboard }
+    @ideaboards = tags.map { |tag| tag.tagable_id if tag.tagable_type == 'ideaboard' }
+    @profiles = tags.map { |tag| tag.tagable_id if tag.tagable_type == 'profile' }
 
     if tags.empty?
       redirect_to tags_path
@@ -28,8 +18,33 @@ class TagsController < ApplicationController
     end
   end
 
+  def create
+    @tag = Tag.new
+    @tag.name = params[:tag][:name]
+
+    if params[:tag][:ideaboard_id]
+      @ideaboard = Ideaboard.find_by_id(params[:tag][:ideaboard_id])
+      @tag.tagable_type = 'ideaboard'
+      @tag.tagable_id = @ideaboard.id
+      tag_parent_path = ideaboard_path(@ideaboard)
+    end
+
+    if params[:tag][:profile]
+      @profile = User.find_by_id(params[:tag][:profile_id])
+      @tag.tagable_type = 'profile'
+      @tag.tagable_id = @profile.id
+      tag_parent_path = profile_path(@profile)
+    end
+
+    if @tag.save
+    else
+      flash[:error] = "Error, please try again"
+    end
+    redirect_to tag_parent_path
+  end
+
   def destroy
-    @tag = Tag.find_by_name_and_ideaboard_id(params[:tag_id], params[:id])
+    @tag = Tag.find_by_name_and_tagable_id(params[:tag_id], params[:id])
 
     if @tag.destroy
     else
@@ -40,10 +55,6 @@ class TagsController < ApplicationController
   end
 
   private
-    def tag_params
-      params.require(:tag).permit(:ideaboard_id, :name)
-    end
-
     def add_breadcrumbs
       add_breadcrumb "Home", ideaboards_path
       add_breadcrumb "Tags", tags_path

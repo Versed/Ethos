@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141123210024) do
+ActiveRecord::Schema.define(version: 20141124160343) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -93,23 +93,25 @@ ActiveRecord::Schema.define(version: 20141123210024) do
 
   create_table "skills", force: true do |t|
     t.string   "name"
-    t.integer  "targetable_id"
-    t.string   "targetable_type"
+    t.integer  "skillable_id"
+    t.string   "skillable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "skills", ["name"], name: "index_skills_on_name"
-  add_index "skills", ["targetable_id", "targetable_type"], name: "index_skills_on_targetable_id_and_targetable_type"
+  add_index "skills", ["skillable_id", "skillable_type"], name: "index_skills_on_skillable_id_and_skillable_type"
 
   create_table "tags", force: true do |t|
-    t.integer  "ideaboard_id"
     t.string   "name"
+    t.integer  "tagable_id"
+    t.string   "tagable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "tags", ["ideaboard_id"], name: "index_tags_on_ideaboard_id"
+  add_index "tags", ["name"], name: "index_tags_on_name"
+  add_index "tags", ["tagable_id", "tagable_type"], name: "index_tags_on_tagable_id_and_tagable_type"
 
   create_table "user_friendships", force: true do |t|
     t.datetime "created_at"

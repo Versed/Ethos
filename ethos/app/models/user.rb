@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :likes
   has_many :user_friendships
   has_many :collaborations
+  has_many :skills, as: :skillable
+  has_many :tags, as: :tagable
   has_many :friends, -> { where(user_friendships: { state: "accepted" }) },
            through: :user_friendships
 

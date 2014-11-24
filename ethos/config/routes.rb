@@ -22,7 +22,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :tags, only: [:index, :show]
+  resources :tags, only: [:index, :show, :create, :destroy], param: 'tag_id'
+  resources :skills, only: [:index, :show, :create, :destroy], param: 'skill_id'
   resources :activities, only: [:index]
   resources :user_friendships do
     member do
@@ -38,7 +39,6 @@ Rails.application.routes.draw do
 
     resources :likes, :only => [:index, :create, :destroy]
     resources :collaborations, param: 'collaboration_id'
-    resources :tags, :only => [:create, :destroy], as: 'ideaboard_tags', param: 'tag_id'
   end
 
   get '/users', to: 'user_friendships#list', as: 'users_list'
