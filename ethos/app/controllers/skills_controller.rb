@@ -20,25 +20,25 @@ class SkillsController < ApplicationController
 
   def create
     @skill = Skill.new
-    @skill.name = params[:name]
+    @skill.name = params[:skill][:name]
 
-    if params[:ideaboard]
-      @ideaboard = Ideaboard.find_by_id(params[:id])
+    if params[:skill][:ideaboard_id]
+      @ideaboard = Ideaboard.find_by_id(params[:skill][:profile_id])
       @skill.skillable_type = 'ideaboard'
       @skill.skillable_id = @ideaboard.id
-      tag_parent_path = ideaboard_path(@ideaboard)
+      skill_parent_path = ideaboard_path(@ideaboard)
     else
-      @profile = User.find_by_id(params[:id])
+      @profile = User.find_by_id(params[:skill][:profile_id])
       @skill.skillable_type = 'profile'
       @skill.skillable_id = @profile.id
-      tag_parent_path = profile_path(@profile)
+      skill_parent_path = profile_path(@profile)
     end
 
     if @skill.save
     else
       flash[:error] = "Error, please try again"
     end
-    redirect_to tag_parent_path
+    redirect_to skill_parent_path
   end
 
   def destroy

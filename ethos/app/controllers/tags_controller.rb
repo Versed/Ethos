@@ -9,8 +9,8 @@ class TagsController < ApplicationController
   def show
     add_breadcrumb params[:id]
     tags = Tag.where(name: params[:id])
-    @ideaboards = tags.map { |tag| tag.tagable_id if tag.tagable_type == 'ideaboard' }
-    @profiles = tags.map { |tag| tag.tagable_id if tag.tagable_type == 'profile' }
+    @ideaboards = tags.map { |tag| tag.tagable_id if tag.tagable_type == 'Ideaboard' }
+    @profiles = tags.map { |tag| tag.tagable_id if tag.tagable_type == 'Profile' }
 
     if tags.empty?
       redirect_to tags_path
@@ -24,14 +24,14 @@ class TagsController < ApplicationController
 
     if params[:tag][:ideaboard_id]
       @ideaboard = Ideaboard.find_by_id(params[:tag][:ideaboard_id])
-      @tag.tagable_type = 'ideaboard'
+      @tag.tagable_type = 'Ideaboard'
       @tag.tagable_id = @ideaboard.id
       tag_parent_path = ideaboard_path(@ideaboard)
     end
 
-    if params[:tag][:profile]
+    if params[:tag][:profile_id]
       @profile = User.find_by_id(params[:tag][:profile_id])
-      @tag.tagable_type = 'profile'
+      @tag.tagable_type = 'Profile'
       @tag.tagable_id = @profile.id
       tag_parent_path = profile_path(@profile)
     end
