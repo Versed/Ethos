@@ -16,7 +16,7 @@ class TagsController < ApplicationController
     @ideaboards = ideaboards.map {|tag| tag.tagable }
     @profiles = profiles.map {|tag| tag.tagable }
 
-    if @ideaboards.empty? || @profiles.empty?
+    if @ideaboards.empty? && @profiles.empty?
       redirect_to tags_path
       flash[:error] = "No tags by that name"
     end
