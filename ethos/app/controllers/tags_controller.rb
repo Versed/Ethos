@@ -7,12 +7,14 @@ class TagsController < ApplicationController
   end
 
   def show
-    add_breadcrumb params[:id]
-    tags = Tag.where(name: params[:id])
-    @ideaboards = tags.map { |tag| tag.tagable_id if tag.tagable_type == 'Ideaboard' }
-    @profiles = tags.map { |tag| tag.tagable_id if tag.tagable_type == 'Profile' }
+    params[:page] ||= 1
 
-    if tags.empty?
+    add_breadcrumb params[:id]
+    @tags = Tag.includes(:tagable).where(name: params[:tag_id]).all
+    @ideaboards = @tags.map {|tag| tag.tagable if tag.tagable_type == "Ideaboard" }
+    @profile = @tags.map {|tag| tag.tagable if tag.tagable_type == "Profile" }
+
+    if @tags.empty?
       redirect_to tags_path
       flash[:error] = "No tags by that name"
     end
@@ -44,7 +46,7 @@ class TagsController < ApplicationController
   end
 
   def destroy
-    @tag = Tag.find_by_name_and_tagable_id(params[:tag_id], params[:id])
+    @tag = Tag.find_by_id(params[:tag_id])
 
     if @tag.destroy
     else

@@ -16,7 +16,7 @@
           <% if tag.name %>
             <li class="tag">
               <% if can_edit?(@ideaboard) %>
-                <%= link_to tag_path('ideaboards', @ideaboard.id, tag.name), method: :delete do %>
+                <%= link_to tag_path(:tag_id => tag.id), method: :delete do %>
                   <i class='fa fa-times-circle-o'>x</i>
                 <% end %>
               <% end %>
