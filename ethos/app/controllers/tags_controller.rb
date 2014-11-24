@@ -10,11 +10,13 @@ class TagsController < ApplicationController
     params[:page] ||= 1
 
     add_breadcrumb params[:id]
-    @tags = Tag.includes(:tagable).where(name: params[:tag_id]).all
-    @ideaboards = @tags.map {|tag| tag.tagable if tag.tagable_type == "Ideaboard" }
-    @profile = @tags.map {|tag| tag.tagable if tag.tagable_type == "Profile" }
+    ideaboards = Tag.includes(:tagable).where(name: params[:tag_id], tagable_type: "Ideaboard").all
+    profiles = Tag.includes(:tagable).where(name: params[:tag_id], tagable_type: "User").all
 
-    if @tags.empty?
+    @ideaboards = ideaboards.map {|tag| tag.tagable }
+    @profiles = profiles.map {|tag| tag.tagable }
+
+    if @ideaboards.empty? || @profiles.empty?
       redirect_to tags_path
       flash[:error] = "No tags by that name"
     end
@@ -33,7 +35,7 @@ class TagsController < ApplicationController
 
     if params[:tag][:profile_id]
       @profile = User.find_by_id(params[:tag][:profile_id])
-      @tag.tagable_type = 'Profile'
+      @tag.tagable_type = 'User'
       @tag.tagable_id = @profile.id
       tag_parent_path = profile_path(@profile)
     end
