@@ -6,7 +6,7 @@ class ProfilesController < ApplicationController
 
     if @user
       @ideaboards = Ideaboard.where(:user_id => @user.id).paginate(:page => params[:page], :per_page => 4).all
-      @user_friendships = @user.user_friendships.all
+      @user_friendships = @user.friends
       render action: :show
     else
       render file: 'public/404', status: 404, formats: [:html]
