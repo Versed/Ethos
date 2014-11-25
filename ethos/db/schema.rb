@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141124160343) do
+ActiveRecord::Schema.define(version: 20141124204612) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -91,23 +91,13 @@ ActiveRecord::Schema.define(version: 20141124160343) do
   add_index "pictures", ["album_id"], name: "index_pictures_on_album_id"
   add_index "pictures", ["ideaboard_id"], name: "index_pictures_on_ideaboard_id"
 
-  create_table "skills", force: true do |t|
-    t.string   "name"
-    t.integer  "skillable_id"
-    t.string   "skillable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "skills", ["name"], name: "index_skills_on_name"
-  add_index "skills", ["skillable_id", "skillable_type"], name: "index_skills_on_skillable_id_and_skillable_type"
-
   create_table "tags", force: true do |t|
     t.string   "name"
     t.integer  "tagable_id"
     t.string   "tagable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_skill"
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name"

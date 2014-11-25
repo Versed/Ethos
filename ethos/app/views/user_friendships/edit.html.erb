@@ -1,14 +1,10 @@
-Viewing friendship
-
 <div class="row">
   <div class="avatar large-2 columns">
-    <%= image_tag @user_friendship.user.avatar %><br>
-    <%= @user_friendship.user.first_name %>
+    <%= avatar_profile_link @user_friendship.user, {}, class: '' %>
   </div>
 
   <div class="avatar large-2 columns">
-    <%= image_tag @user_friendship.friend.avatar %><br>
-    <%= @user_friendship.friend.first_name %>
+    <%= avatar_profile_link @user_friendship.friend, {}, class: '' %>
   </div>
 </div>
 

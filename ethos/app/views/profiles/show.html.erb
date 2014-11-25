@@ -58,18 +58,57 @@
             </ul>
             <% if signed_in? && current_user == @user %>
             <%= simple_form_for @tag, method: :create, :url => tags_path do |f| %>
-              <%= f.input :name %>
-              <%= f.hidden_field :profile_id, :value => current_user.id %>
-              <%= f.submit "Add", class: "button" %>
+              <div class="row collapse">
+                <div class="small-10 columns">
+                  <%= f.input :name, label: false %>
+                </div>
+                <div class="small-2 columns">
+                  <%= f.hidden_field :profile_id, :value => current_user.id %>
+                  <%= f.submit "Add", class: "button postfix" %>
+                </div>
+              </div>
             <% end %>
           <% end %>
         </div>
 
         <h4 class="subheader">Skills</h4>
+        <div>
+          <ul class="link-list">
+              <% @user.skills.each do |skill| %>
+                <% if skill.name %>
+                  <li class="tag">
+                    <% if signed_in? && current_user == @user %>
+                      <%= link_to skill_path(:tag_id => skill.id), method: :delete do %>
+                        <i class='fa fa-times-circle-o'>x</i>
+                      <% end %>
+                    <% end %>
+                    <%= link_to "#{skill.name}", skill_path(skill.name) %>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+            <% if signed_in? && current_user == @user %>
+            <%= simple_form_for @skill, method: :create, :url => tags_path do |f| %>
+              <div class="row collapse">
+                <div class="small-10 columns">
+                  <%= f.input :name, label: false %>
+                </div>
+                <div class="small-2 columns">
+                  <%= f.hidden_field :profile_id, :value => current_user.id %>
+                  <%= f.submit "Add", class: "button postfix" %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
 
         <div>
           <h4 class="subheader">Connections</h4>
-          <ul class="link-list friendsList"></ul>
+          <ul class="link-list friendsList section">
+            <% @user_friendships.each do |friendship| %>
+              <li class="portfolio-preview"><%= avatar_profile_link friendship.friend, {}, class: '' %></li>
+            <% end %>
+          </ul>
       </div>
     </div>
 

@@ -2,47 +2,87 @@
   <%= render partial: 'side_menu' %>
 
   <div class="large-9 larege-offset-3 columns cover-page">
-    <div>
-      Application Info Here
-    </div>
+    <% if signed_in? %>
+      <% if current_user == @ideaboard.user %>
+        <div><a><%= link_to "Edit", edit_ideaboard_path(@ideaboard), class: "button" %></a></div>
+      <% else %>
+        <div class="application">
+          <button class="button small">Apply</button>
+          <button class="button small">Undo Application</button>
+        </div>
+      <% end %>
+      <hr>
+    <% end %>
 
     <img class="logo" src="img_tag(foundation_paperclip_picture)">
     <div class="title"> <%= @ideaboard.title %> </div>
 
-    <div>
-      <h4 class="subheader"> Tags </h4>
-      <ul class="link-list">
-        <% @ideaboard.tags.each do |tag| %>
-          <% if tag.name %>
-            <li class="tag">
-              <% if can_edit?(@ideaboard) %>
-                <%= link_to tag_path(:tag_id => tag.id), method: :delete do %>
-                  <i class='fa fa-times-circle-o'>x</i>
+    <div class="row">
+      <div class="large-6 columns">
+        <h4 class="subheader"> Tags </h4>
+        <ul class="link-list">
+          <% @ideaboard.tags.each do |tag| %>
+            <% if tag.name %>
+              <li class="tag">
+                <% if can_edit?(@ideaboard) %>
+                  <%= link_to tag_path(:tag_id => tag.id), method: :delete do %>
+                    <i class='fa fa-times-circle-o'>x</i>
+                  <% end %>
                 <% end %>
-              <% end %>
-              <%= link_to "#{tag.name}", tag_path(tag.name) %>
-            </li>
+                <%= link_to "#{tag.name}", tag_path(tag.name) %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+
+        <% if can_edit?(@ideaboard) %>
+          <%= simple_form_for @tag, method: :create, :url => tags_path do |f| %>
+            <div class="row collapse">
+              <div class="large-10 columns">
+                <%= f.input :name, label: false %>
+              </div>
+              <div class="large-2 columns">
+                <%= f.hidden_field :ideaboard_id, :value => @ideaboard.id %>
+                <%= f.submit "Add", class: "button postfix" %>
+              </div>
+            </div>
           <% end %>
         <% end %>
-      </ul>
+      </div>
+      <div class="large-6 columns">
+        <h4 class="subheader"> Skills Needed </h4>
+        <ul class="link-list">
+          <% @ideaboard.skills.each do |skill| %>
+            <% if skill.name %>
+              <li class="tag">
+                <% if can_edit?(@ideaboard) %>
+                  <%= link_to skill_path(:skill_id => skill.id), method: :delete do %>
+                    <i class='fa fa-times-circle-o'>x</i>
+                  <% end %>
+                <% end %>
+                <%= link_to "#{skill.name}", skill_path(skill.name) %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
 
-      <% if can_edit?(@ideaboard) %>
-        <%= simple_form_for @tag, method: :create, :url => tags_path do |f| %>
-          <%= f.input :name %>
-          <%= f.hidden_field :ideaboard_id, :value => @ideaboard.id %>
-          <%= f.submit "Add", class: "button" %>
+        <% if can_edit?(@ideaboard) %>
+          <%= simple_form_for @skill, method: :create, :url => skills_path do |f| %>
+            <div class="row collapse">
+              <div class="large-10 columns">
+                <%= f.input :name, label: false %>
+              </div>
+              <div class="large-2 columns">
+                <%= f.hidden_field :ideaboard_id, :value => @ideaboard.id %>
+                <%= f.submit "Add", class: "button postfix" %>
+              </div>
+            </div>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
-
     <div class="description section"> <%= @ideaboard.description %> </div>
 
-    <div>
-      <h4 class="subheader"> Skills Needed </h4>
-      <ul class="link-list">
-        <li class="tag">Test</li> <!-- if can edit -> class="fa fa-times-circle-o" to delete -->
-      </ul>
-    </div>
 
     <div>
       <h4 class="subheader">Collaborators</h4>

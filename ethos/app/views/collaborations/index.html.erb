@@ -10,10 +10,7 @@
 
   <ul class="link-list friendsList clearfix">
     <li class="section large-3 columns portfolio-preview">
-      <%= link_to profile_path(@ideaboard.user) do %>
-        <%= avatar_profile_link @ideaboard.user, {}, class: '' %>
-        <%= @ideaboard.user.context_name(@ideaboard.user) %>
-      <% end %>
+      <%= avatar_profile_link @ideaboard.user, {}, class: '' %>
     </li>
     <% @ideaboard.collaborations.each do |collaboration| %>
       <li class="section large-3 columns portfolio-preview">
