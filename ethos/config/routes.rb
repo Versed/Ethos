@@ -38,7 +38,12 @@ Rails.application.routes.draw do
     end
 
     resources :likes, :only => [:index, :create, :destroy]
-    resources :collaborations, param: 'collaboration_id'
+    resources :collaborations, param: 'collaboration_id' do
+      member do
+        put :accept
+        put :block
+      end
+    end
   end
 
   get '/users', to: 'user_friendships#list', as: 'users_list'
