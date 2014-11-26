@@ -21,6 +21,7 @@ class UserFriendship < ActiveRecord::Base
   end
 
   validate :not_blocked
+  self.per_page = 30
 
   def self.request(user1, user2)
     transaction do

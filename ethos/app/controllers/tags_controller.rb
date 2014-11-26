@@ -26,6 +26,10 @@ class TagsController < ApplicationController
     @tag = Tag.new
     @tag.name = params[:tag][:name]
 
+    if params[:tag][:is_skill]
+      @tag.is_skill = true
+    end
+
     if params[:tag][:ideaboard_id]
       @ideaboard = Ideaboard.find_by_id(params[:tag][:ideaboard_id])
       @tag.tagable_type = 'Ideaboard'

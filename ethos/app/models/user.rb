@@ -4,8 +4,9 @@ class User < ActiveRecord::Base
   has_many :likes
   has_many :user_friendships
   has_many :collaborations
-  has_many :skills, as: :skillable
-  has_many :tags, as: :tagable
+  has_many :tags, -> { where( is_skill: false ) },
+           as: :tagable, dependent: :destroy
+
   has_many :skills, -> { where( is_skill: true ) },
            foreign_key: :tagable_id, source: :tagable,
            class_name: 'Tag', source_type: 'User', dependent: :destroy
@@ -72,7 +73,7 @@ class User < ActiveRecord::Base
   end
 
   def context_name(current_user)
-    if self.id == current_user.id
+    if current_user && self.id == current_user.id
       return "You"
     else
       return full_name

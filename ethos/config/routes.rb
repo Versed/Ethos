@@ -43,5 +43,6 @@ Rails.application.routes.draw do
 
   get '/users', to: 'user_friendships#list', as: 'users_list'
   get '/:id', to: 'profiles#show', as: 'profile'
+  get '/:id/friends', to: 'profiles#friends', as: 'friends_list'
   get '/:id/ideaboards', to: 'ideaboards#list', as: 'ideaboards_list'
 end

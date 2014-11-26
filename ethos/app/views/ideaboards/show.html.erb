@@ -67,13 +67,14 @@
         </ul>
 
         <% if can_edit?(@ideaboard) %>
-          <%= simple_form_for @skill, method: :create, :url => skills_path do |f| %>
+          <%= simple_form_for @tag, method: :create, :url => skills_path do |f| %>
             <div class="row collapse">
               <div class="large-10 columns">
                 <%= f.input :name, label: false %>
               </div>
               <div class="large-2 columns">
                 <%= f.hidden_field :ideaboard_id, :value => @ideaboard.id %>
+                <%= f.hidden_field :is_skill, :value => true %>
                 <%= f.submit "Add", class: "button postfix" %>
               </div>
             </div>
@@ -89,15 +90,11 @@
       <!-- link to pending applications if can edit -->
       <ul class="link-list friendsList clearfix">
         <li class="section large-3 columns portfolio-preview">
-          <%= link_to profile_path(@ideaboard.user) do %>
-            <%= avatar_profile_link @ideaboard.user, {}, class: '' %>
-          <% end %>
+          <%= avatar_profile_link @ideaboard.user, {}, class: '' %>
         </li>
-        <% @ideaboard.collaborations.each do |collaboration| %>
+        <% @ideaboard.collaborators[0..9].each do |collaboration| %>
           <li class="section large-3 columns portfolio-preview">
-            <%= link_to profile_path(collaboration.user) do %>
-              <%= avatar_profile_link collaboration.user, {}, class: '' %>
-            <% end %>
+            <%= avatar_profile_link collaboration.user, {}, class: '' %>
           </li>
         <% end %>
       </ul>
