@@ -22,10 +22,14 @@ class CollaborationsController < ApplicationController
     end
   end
 
+  def edit
+    @collaboration = @ideaboard.collaborations.find_by_id(params[:collaboration_id])
+  end
+
   def accept
     @collaboration = @ideaboard.collaborations.find(params[:id])
 
-    if @collaboration.accept!
+    if @collaboration.accept_collaboration!
       # add activity to ideaboard
       flash[:success] = "Collaborator added."
     else

@@ -1,10 +1,17 @@
 <div class="row">
   <% if signed_in? && @ideaboard.user == current_user %>
     <h4 class="subheader">Pending collaboration requests</h4>
-    <ul class="link-list friendsList clearfix">
+    <ul class="link-list friendsList clearfix centered">
       <% @ideaboard.pending_collaborators.each do |collaboration| %>
         <li class="section large-3 columns portfolio-preview">
-          <%= avatar_profile_link friendship, {}, class: '' %>
+          <%= avatar_profile_link collaboration.user, {}, class: '' %>
+          <div class="centered">
+            <hr>
+
+            <%= link_to "Approve", edit_collaboration_path('ideaboards', @ideaboard, collaboration) %>
+            | <%= link_to "Decline", edit_collaboration_path('ideaboards', @ideaboard, collaboration) %>
+            | <%= link_to "Block", edit_collaboration_path('ideaboards', @ideaboard, collaboration) %>
+          </div>
         </li>
       <% end %>
     </ul>
@@ -15,7 +22,7 @@
     <%= link_to "Apply to be a Collaborator", new_collaboration_path('ideaboards', @ideaboard), class: 'button' %>
   <% end %>
 
-  <ul class="link-list friendsList clearfix">
+  <ul class="link-list friendsList clearfix centered">
     <li class="section large-3 columns portfolio-preview">
       <%= avatar_profile_link @ideaboard.user, {}, class: '' %>
     </li>

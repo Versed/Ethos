@@ -16,4 +16,8 @@ class Collaboration < ActiveRecord::Base
       collaboration
     end
   end
+
+  def accept_collaboration!
+    self.update_attribute(:state, 'accepted')
+  end
 end

@@ -13,10 +13,10 @@ class Ideaboard < ActiveRecord::Base
            class_name: 'Tag', source_type: 'Ideaboard', dependent: :destroy
 
   has_many :collaborators, -> { where(collaborations: { state: "accepted" }) },
-           class_name: 'Collaboration', foreign_key: :user_id
+           class_name: 'Collaboration', foreign_key: :ideaboard_id
 
-  has_many :pending_collaborators, -> { where(collaborations: { state: "pending" }) },
-           class_name: 'Collaboration', foreign_key: :user_id
+  has_many :pending_collaborators, -> { where(collaborations: { state: "requested" }) },
+           class_name: 'Collaboration', foreign_key: :ideaboard_id
 
   accepts_nested_attributes_for :document
   self.per_page = 30
