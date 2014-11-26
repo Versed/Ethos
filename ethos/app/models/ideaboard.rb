@@ -7,6 +7,11 @@ class Ideaboard < ActiveRecord::Base
   has_many :likes
   has_many :skills, as: :skillable
   has_many :tags, as: :tagable
+  has_many :collaborators, -> { where(collaborations: { state: "accepted" }) },
+           class_name: 'Collaboration', foreign_key: :user_id
+
+  has_many :pending_collaborators, -> { where(collaborations: { state: "pending" }) },
+           class_name: 'Collaboration', foreign_key: :user_id
 
   accepts_nested_attributes_for :document
   self.per_page = 30

@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
   has_many :collaborations
   has_many :skills, as: :skillable
   has_many :tags, as: :tagable
+  has_many :skills, -> { where( is_skill: true ) },
+           foreign_key: :tagable_id, source: :tagable,
+           class_name: 'Tag', source_type: 'User', dependent: :destroy
+
   has_many :friends, -> { where(user_friendships: { state: "accepted" }) },
            through: :user_friendships
 

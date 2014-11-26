@@ -1,5 +1,7 @@
 class CollaborationsController < ApplicationController
+  before_filter :authenticate_user!, only: [:new, :create, :accept]
   before_filter :setup_ideaboard
+  before_filter :add_breadcrumbs
 
   def index
   end
@@ -21,6 +23,8 @@ class CollaborationsController < ApplicationController
   end
 
   def accept
+    @collaboration = @ideaboard.collaborations.find(params[:id])
+
     if @collaboration.accept!
       # add activity to ideaboard
       flash[:success] = "Collaborator added."
@@ -37,5 +41,11 @@ class CollaborationsController < ApplicationController
 
   def collaboration_params
     params.require(:collaboration).permit(:ideaboard_id, :user_id)
+  end
+
+  def add_breadcrumbs
+    add_breadcrumb "Ideaboards", ideaboards_path
+    add_breadcrumb @ideaboard.title, ideaboard_path(@ideaboard)
+    add_breadcrumb "Collaborators"
   end
 end
