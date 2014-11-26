@@ -28,9 +28,7 @@
     </li>
     <% @ideaboard.collaborators.each do |collaboration| %>
       <li class="section large-3 columns portfolio-preview">
-        <li class="portfolio-preview">
-          <%= avatar_profile_link friendship, {}, class: '' %>
-        </li>
+          <%= avatar_profile_link collaboration.user, {}, class: '' %>
       </li>
     <% end %>
   </ul>

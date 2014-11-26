@@ -18,15 +18,16 @@
   <% end %>
 <% end %>
 
+<% if @user_friendship.accepted? %>
+  <%= simple_form_for @user_friendship, url: block_user_friendship_path(@user_friendship), method:
+    :put do |form| %>
 
-<%= simple_form_for @user_friendship, url: block_user_friendship_path(@user_friendship), method:
-  :put do |form| %>
+    <%= form.submit "Block friendship", class: "button" %>
+  <% end %>
 
-  <%= form.submit "Block friendship", class: "button" %>
-<% end %>
+  <%= simple_form_for @user_friendship, url: user_friendship_path(@user_friendship), method:
+    :delete do |form| %>
 
-<%= simple_form_for @user_friendship, url: user_friendship_path(@user_friendship), method:
-  :delete do |form| %>
-
-  <%= form.submit "Delete friendship", class: "button" %>
+    <%= form.submit "Delete friendship", class: "button" %>
+  <% end %>
 <% end %>
