@@ -21,7 +21,7 @@
       </div>
 
       <div class="large-3 columns end">
-        <div class="stat">Connections <span><%= @user.user_friendships.count %></span></div>
+        <div class="stat">Connections <span><%= @user.friends.count %></span></div>
       </div>
     </div>
   </div>
@@ -74,27 +74,29 @@
         <h4 class="subheader">Skills</h4>
         <div>
           <ul class="link-list">
+              <% @user.skills %>
               <% @user.skills.each do |skill| %>
                 <% if skill.name %>
                   <li class="tag">
                     <% if signed_in? && current_user == @user %>
-                      <%= link_to skill_path(:tag_id => skill.id), method: :delete do %>
+                      <%= link_to tag_path(:tag_id => skill.id), method: :delete do %>
                         <i class='fa fa-times-circle-o'>x</i>
                       <% end %>
                     <% end %>
-                    <%= link_to "#{skill.name}", skill_path(skill.name) %>
+                    <%= link_to "#{skill.name}", tag_path(skill.name) %>
                   </li>
                 <% end %>
               <% end %>
             </ul>
             <% if signed_in? && current_user == @user %>
-            <%= simple_form_for @skill, method: :create, :url => tags_path do |f| %>
+            <%= simple_form_for @tag, method: :create, :url => tags_path do |f| %>
               <div class="row collapse">
                 <div class="small-10 columns">
                   <%= f.input :name, label: false %>
                 </div>
                 <div class="small-2 columns">
                   <%= f.hidden_field :profile_id, :value => current_user.id %>
+                  <%= f.hidden_field :is_skill, :value => true %>
                   <%= f.submit "Add", class: "button postfix" %>
                 </div>
               </div>
@@ -103,11 +105,12 @@
         </div>
 
         <div>
-          <h4 class="subheader">Connections</h4>
           <ul class="link-list friendsList section">
-            <% @user_friendships.each do |friendship| %>
-              <li class="portfolio-preview"><%= avatar_profile_link friendship.friend, {}, class: '' %></li>
+            <h4 class="subheader">Connections</h4>
+            <% @user_friendships[0..5].each do |friendship| %>
+              <li class="portfolio-preview"><%= avatar_profile_link friendship, {}, class: '' %></li>
             <% end %>
+            <li> <%= link_to "See all", friends_list_path(@user) %></li>
           </ul>
       </div>
     </div>

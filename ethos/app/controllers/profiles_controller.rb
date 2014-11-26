@@ -1,7 +1,8 @@
 class ProfilesController < ApplicationController
+  before_filter :get_user
+
   def show
     params[:page] ||= 1
-    @user = User.find_by_username(params[:id])
     @tag = Tag.new
 
     if @user
@@ -11,5 +12,18 @@ class ProfilesController < ApplicationController
     else
       render file: 'public/404', status: 404, formats: [:html]
     end
+  end
+
+  def friends
+    params[:page] ||= 1
+
+    if @user
+      @user_friendships = @user.friends.page(params[:page])
+    end
+  end
+
+  private
+  def get_user
+    @user = User.find_by_username(params[:id])
   end
 end
