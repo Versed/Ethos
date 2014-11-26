@@ -4,9 +4,14 @@ class Collaboration < ActiveRecord::Base
 
   state_machine :state, initial: :pending do
     state :requested
+    state :blocked
 
     event :accept do
       transition any => :accepted
+    end
+
+    event :block do
+      transition any => :blocked
     end
   end
 
@@ -19,5 +24,9 @@ class Collaboration < ActiveRecord::Base
 
   def accept_collaboration!
     self.update_attribute(:state, 'accepted')
+  end
+
+  def block!
+    self.update_attribute(:state, 'blocked')
   end
 end

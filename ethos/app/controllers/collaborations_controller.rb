@@ -27,11 +27,21 @@ class CollaborationsController < ApplicationController
   end
 
   def accept
-    collaboration = @ideaboard.collaborations.find(params[:collaboration_id])
+    collaboration = @ideaboard.collaborations.find_by_id(params[:collaboration_id])
     if collaboration.accept_collaboration!
       flash[:success] = "Collaborator added."
     else
       flash[:error] = "Could not accept collaboration request."
+    end
+    redirect_to collaborations_path
+  end
+
+  def block
+    collaboration = @ideaboard.collaborations.find_by_id(params[:collaboration_id])
+    if collaboration.block!
+      flash[:success] = "This user has been blocked."
+    else
+      flash[:error] = "Friendship could not be blocked."
     end
     redirect_to collaborations_path
   end
