@@ -1,4 +1,5 @@
 class Ideaboard < ActiveRecord::Base
+  acts_as_commentable
   belongs_to :user
   belongs_to :document
   has_many :albums

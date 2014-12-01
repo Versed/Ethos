@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141125225147) do
+ActiveRecord::Schema.define(version: 20141201230627) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -44,6 +44,21 @@ ActiveRecord::Schema.define(version: 20141125225147) do
 
   add_index "collaborations", ["ideaboard_id"], name: "index_collaborations_on_ideaboard_id"
   add_index "collaborations", ["state"], name: "index_collaborations_on_state"
+
+  create_table "comments", force: true do |t|
+    t.string   "title",            limit: 50, default: ""
+    t.text     "comment"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.integer  "user_id"
+    t.string   "role",                        default: "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id"
+  add_index "comments", ["commentable_type"], name: "index_comments_on_commentable_type"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "documents", force: true do |t|
     t.integer  "user_id"
