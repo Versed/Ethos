@@ -18,6 +18,9 @@ class Ideaboard < ActiveRecord::Base
   has_many :pending_collaborators, -> { where(collaborations: { state: "requested" }) },
            class_name: 'Collaboration', foreign_key: :ideaboard_id
 
+  has_many :blocked_collaborators, -> { where(collaborations: { state: "blocked" }) },
+           class_name: 'Collaboration', foreign_key: :ideaboard_id
+
   accepts_nested_attributes_for :document
   self.per_page = 30
 

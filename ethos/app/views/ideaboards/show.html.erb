@@ -5,13 +5,8 @@
     <% if signed_in? %>
       <% if current_user == @ideaboard.user %>
         <div><a><%= link_to "Edit", edit_ideaboard_path(@ideaboard), class: "button" %></a></div>
-      <% else %>
-        <div class="application">
-          <button class="button small">Apply</button>
-          <button class="button small">Undo Application</button>
-        </div>
+        <hr>
       <% end %>
-      <hr>
     <% end %>
 
     <img class="logo" src="img_tag(foundation_paperclip_picture)">

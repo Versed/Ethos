@@ -1,16 +1,24 @@
-<%= @likes.count %> likes
+<div class="row">
+  <h4><%= @likes.count %> likes</h4>
 
-<% @likes.each do |like| %>
-  <%= like.user_id %>
-<% end %>
+  <div>
+    <ul class="link-list friendsList clearfix centered">
+      <% @likes.each do |like| %>
+        <li class="section large-3 columns portfolio-preview">
+          <%= avatar_profile_link like.user, {}, class: '' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 
-<%= simple_form_for @like, method: :create do |f| %>
-  <%= f.hidden_field :user_id, :value => current_user.id %>
-  <%= f.hidden_field :ideaboard_id, :value => @ideaboard.id %>
-  <% if can_like?(@ideaboard) %>
-    <%= f.submit "Like", class: "button" %>
+  <%= simple_form_for @like, method: :create do |f| %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :ideaboard_id, :value => @ideaboard.id %>
+    <% if can_like?(@ideaboard) %>
+      <%= f.submit "Like", class: "button" %>
+    <% end %>
   <% end %>
-<% end %>
-<% if can_unlike?(@ideaboard) %>
-  <%= link_to 'Unlike', like_path('ideaboards', @ideaboard), method: :delete, class: "button" %>
-<% end %>
+  <% if can_unlike?(@ideaboard) %>
+    <%= link_to 'Unlike', like_path('ideaboards', @ideaboard), method: :delete, class: "button" %>
+  <% end %>
+</div>
