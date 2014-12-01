@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
   def show
     params[:page] ||= 1
     @tag = Tag.new
+    @comment = Comment.new
 
     if @user
       @ideaboards = Ideaboard.where(:user_id => @user.id).paginate(:page => params[:page], :per_page => 4).all

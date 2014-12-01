@@ -145,15 +145,21 @@
         </div>
       </div>
 
-      <h5>Feed</h5>
       <div class="feed">
-        <form>
-          <div class="row collapse">
-            <div class="small-12 columns">
-              <input type="text" placeholder="Post something!" />
+        <% if can_comment_profile?(current_user, @user) %>
+          <form>
+            <div class="row">
+              <div class="small-10 columns">
+                <%= simple_form_for @comment, method: :create, :url => 'profile#comment' do |f| %>
+                  <%= f.input :comment, label: false, placeholder: 'Post Something!' %>
+              </div>
+              <div class="small-2 columns">
+                  <%= f.submit "Post", class: "button" %>
+                <% end %>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        <% end %>
         <ul class="link-list social">
           <li>
             <div></div>
