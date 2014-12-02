@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   resources :tags, only: [:index, :show, :create, :destroy], param: 'tag_id'
   resources :skills, only: [:index, :show, :create, :destroy], param: 'skill_id'
   resources :activities, only: [:index]
+  resources :comments
+
   resources :user_friendships do
     member do
       put :accept

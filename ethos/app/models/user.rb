@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  acts_as_commentable
   has_many :ideaboards
   has_many :activities
   has_many :likes
