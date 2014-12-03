@@ -2,6 +2,11 @@ class CommentsController < ApplicationController
   before_filter :set_comment
 
   def show
+    if !@comment
+      redirect_to tags_path
+    end
+
+    add_breadcrumb params[:title]
   end
 
   def create

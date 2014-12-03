@@ -163,9 +163,22 @@
           </form>
         <% end %>
         <ul class="link-list social">
-          <li>
-            <div></div>
-          </li>
+          <% @user.comments.each do |comment| %>
+            <li>
+              <div class="row">
+                <div class="large-2 columns portfolio-preview">
+                  <%= avatar_profile_link comment.user, {}, class: '' %>
+                </div>
+                <div class="large-9 columns">
+                  <h5><%= comment.title %></h5>
+                  <p><%= comment.comment %></p>
+                </div>
+                <div class="large-1 columns">
+                  <%= link_to "&rarr;".html_safe, comment_path(comment) %>
+                </div>
+              </div>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
