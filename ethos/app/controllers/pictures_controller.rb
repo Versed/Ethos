@@ -1,12 +1,11 @@
 class PicturesController < ApplicationController
-  before_action :set_information, only: [:show, :edit, :update, :destroy]
+  before_action :set_information, only: [:index, :show, :edit, :update, :destroy]
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_filter :ensure_proper_user, only: [:edit, :new, :create, :update, :destroy]
   before_filter :add_breadcrumbs
 
   def index
     @pictures = @album.pictures.all
-    respond_with(@pictures)
   end
 
   def show
@@ -56,7 +55,7 @@ class PicturesController < ApplicationController
     def add_breadcrumbs
       add_breadcrumb @ideaboard.title, ideaboards_path(@ideaboard)
       add_breadcrumb "Albums", albums_path
-      add_breadcrumb "Pictures", album_pictures_path(@album)
+      add_breadcrumb @album.title
     end
 
     def ensure_proper_user
@@ -67,9 +66,9 @@ class PicturesController < ApplicationController
     end
 
     def set_information
-      @ideaboard = Ideaboard.find(params[:id])
+      @ideaboard = Ideaboard.find_by_id(params[:id])
       @album = @ideaboard.albums.find(params[:album_id])
-      @picture = @album.pictures.find(params[:picture_id])
+      @user = @ideaboard.user
     end
 
     def picture_params
