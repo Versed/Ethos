@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   resources :ideaboards do
     member do
       get 'about'
-      get 'discussion'
       get 'activity'
     end
   end
@@ -46,6 +45,8 @@ Rails.application.routes.draw do
         put :block
       end
     end
+
+    resources :discussions
   end
 
   get '/users', to: 'user_friendships#list', as: 'users_list'
