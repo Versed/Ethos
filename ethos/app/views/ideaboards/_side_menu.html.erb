@@ -3,7 +3,7 @@
     <div><a> <%= link_to "Idea", ideaboard_path(@ideaboard) %></div>
     <div><%= link_to "About", about_ideaboard_path(@ideaboard) %></div>
     <div><%= link_to "Activity", activity_ideaboard_path(@ideaboard) %></div>
-    <div><%= link_to "Discussion", discussion_ideaboard_path(@ideaboard) %></div>
+    <div><%= link_to "Discussion", discussions_path('ideaboards', @ideaboard) %></div>
     <div><%= link_to 'Albums', albums_path('ideaboards', @ideaboard) %></div>
     <div><%= link_to "#{@ideaboard.likes.count} Likes", likes_path('ideaboards', @ideaboard) %></div>
 
