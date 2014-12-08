@@ -42,21 +42,21 @@
       <h4 class="subheader">About</h4>
         <div>
           <h4 class="subheader">My Interests</h5>
-            <ul class="link-list">
-              <% @user.tags.each do |tag| %>
-                <% if tag.name %>
-                  <li class="tag">
-                    <% if signed_in? && current_user == @user %>
-                      <%= link_to tag_path(:tag_id => tag.id), method: :delete do %>
-                        <i class='fa fa-times-circle-o'>x</i>
-                      <% end %>
+          <ul class="link-list">
+            <% @user.tags.each do |tag| %>
+              <% if tag.name %>
+                <li class="tag">
+                  <% if signed_in? && current_user == @user %>
+                    <%= link_to tag_path(:tag_id => tag.id), method: :delete do %>
+                      <i class='fa fa-times-circle-o'>x</i>
                     <% end %>
-                    <%= link_to "#{tag.name}", tag_path(tag.name) %>
-                  </li>
-                <% end %>
+                  <% end %>
+                  <%= link_to "#{tag.name}", tag_path(tag.name) %>
+                </li>
               <% end %>
-            </ul>
-            <% if signed_in? && current_user == @user %>
+            <% end %>
+          </ul>
+          <% if signed_in? && current_user == @user %>
             <%= simple_form_for @tag, method: :create, :url => tags_path do |f| %>
               <div class="row collapse">
                 <div class="small-10 columns">
@@ -74,21 +74,20 @@
         <h4 class="subheader">Skills</h4>
         <div>
           <ul class="link-list">
-              <% @user.skills %>
-              <% @user.skills.each do |skill| %>
-                <% if skill.name %>
-                  <li class="tag">
-                    <% if signed_in? && current_user == @user %>
-                      <%= link_to tag_path(:tag_id => skill.id), method: :delete do %>
-                        <i class='fa fa-times-circle-o'>x</i>
-                      <% end %>
+            <% @user.skills.each do |skill| %>
+              <% if skill.name %>
+                <li class="tag">
+                  <% if signed_in? && current_user == @user %>
+                    <%= link_to tag_path(:tag_id => skill.id), method: :delete do %>
+                      <i class='fa fa-times-circle-o'>x</i>
                     <% end %>
-                    <%= link_to "#{skill.name}", tag_path(skill.name) %>
-                  </li>
-                <% end %>
+                  <% end %>
+                  <%= link_to "#{skill.name}", tag_path(skill.name) %>
+                </li>
               <% end %>
-            </ul>
-            <% if signed_in? && current_user == @user %>
+            <% end %>
+          </ul>
+          <% if signed_in? && current_user == @user %>
             <%= simple_form_for @tag, method: :create, :url => tags_path do |f| %>
               <div class="row collapse">
                 <div class="small-10 columns">
@@ -102,7 +101,7 @@
               </div>
             <% end %>
           <% end %>
-        </div>
+         </div>
 
         <div>
           <ul class="link-list friendsList section">
@@ -112,74 +111,76 @@
             <% end %>
             <li> <%= link_to "See all", friends_list_path(@user) %></li>
           </ul>
-      </div>
-    </div>
-
-    <div class="large-9 columns">
-      <div class="section-container">
-        <dl class="tabs" data-tab>
-          <dd class="active"><a href="#projects">Projects</a></dd>
-          <dd><a href="#collaborations">Collaborations</a></dd>
-        </dl>
-      </div>
-      <div class="tabs-content">
-        <div class="content active section" id="projects">
-          <% @ideaboards.each do |ideaboard| %>
-            <%= link_to ideaboard_path(ideaboard) do %>
-              <div class="idea-thumb">
-                <h5 class="subheader"><%= ideaboard.title %></h5>
-                <p><%= ideaboard.description %></p>
-              </div>
-            <% end %>
-          <% end %>
         </div>
-        <div class="content section" id="collaborations">
-          <% @user.collaborations.each do |collaboration| %>
-            <%= link_to ideaboard_path(collaboration.ideaboard_id) do %>
-              <div class="idea-thumb">
-                <h5 class="subheader"><%= collaboration.ideaboard.title %></h5>
-                <p><%= collaboration.ideaboard.description %></p>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
+     </div>
 
-      <div class="feed">
-        <% if can_comment_profile?(current_user, @user) %>
-          <form>
-            <div class="row">
-              <%= simple_form_for @comment, method: :create, :url => comments_path do |f| %>
-                <div class="small-10 columns">
-                  <%= f.input :title, label: false, placeholder: 'Title' %>
-                  <%= f.input :comment, label: false, placeholder: 'Post Something!' %>
-                  <%= f.hidden_field :profile_id, :value => current_user.id %>
-                </div>
-                <div class="small-2 columns">
-                  <%= f.submit "Post", class: "button" %>
+      <div class="large-9 columns">
+        <div class="section-container">
+          <dl class="tabs" data-tab>
+            <dd class="active"><a href="#projects">Projects</a></dd>
+            <dd><a href="#collaborations">Collaborations</a></dd>
+          </dl>
+        </div>
+        <div class="tabs-content">
+          <div class="content active section" id="projects">
+            <% @ideaboards.each do |ideaboard| %>
+              <%= link_to ideaboard_path(ideaboard) do %>
+                <div class="idea-thumb">
+                  <h5 class="subheader"><%= ideaboard.title %></h5>
+                  <p><%= ideaboard.description %></p>
                 </div>
               <% end %>
-            </div>
-          </form>
-        <% end %>
-        <ul class="link-list social">
-          <% @user.comments.each do |comment| %>
-            <li>
+            <% end %>
+          </div>
+          <div class="content section" id="collaborations">
+            <% @user.collaborations.each do |collaboration| %>
+              <%= link_to ideaboard_path(collaboration.ideaboard_id) do %>
+                <div class="idea-thumb">
+                  <h5 class="subheader"><%= collaboration.ideaboard.title %></h5>
+                  <p><%= collaboration.ideaboard.description %></p>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="feed">
+          <% if can_comment_profile?(current_user, @user) %>
+            <form>
               <div class="row">
-                <div class="large-2 columns portfolio-preview">
-                  <%= avatar_profile_link comment.user, {}, class: '' %>
-                </div>
-                <div class="large-9 columns">
-                  <h5><%= comment.title %></h5>
-                  <p><%= comment.comment %></p>
-                </div>
-                <div class="large-1 columns">
-                  <%= link_to "&rarr;".html_safe, comment_path(comment) %>
-                </div>
+                <%= simple_form_for(@comment) do |f| %>
+                  <div class="small-10 columns">
+                    <%= f.input :title, label: false, placeholder: 'Title' %>
+                    <%= f.input :comment, label: false, placeholder: 'Post Something!' %>
+                  </div>
+                  <div class="small-2 columns">
+                    <%= f.hidden_field :profile_id, :value => current_user.id %>
+                    <%= f.submit "Post", class: "button" %>
+                  </div>
+                <% end %>
               </div>
-            </li>
+            </form>
           <% end %>
-        </ul>
+
+          <ul class="link-list social">
+            <% @user.comments.each do |comment| %>
+              <li>
+                <div class="row">
+                  <div class="large-2 columns portfolio-preview">
+                    <%= avatar_profile_link comment.user, {}, class: '' %>
+                  </div>
+                  <div class="large-9 columns">
+                    <h5><%= comment.title %></h5>
+                    <p><%= comment.comment %></p>
+                  </div>
+                  <div class="large-1 columns">
+                    <%= link_to "&rarr;".html_safe, comment_path(comment) %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

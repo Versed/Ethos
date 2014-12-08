@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_filter :authenticate_user!
   before_filter :set_comment
 
   def show
@@ -10,7 +11,6 @@ class CommentsController < ApplicationController
   end
 
   def create
-    aewfaewfawefawefaw
     @comment = Comment.new
     @comment.title = params[:comment][:title]
     @comment.comment = params[:comment][:comment]
