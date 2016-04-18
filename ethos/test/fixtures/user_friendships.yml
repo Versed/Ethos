@@ -1,9 +1,0 @@
-one:
-  user: nathan
-  friend: joe
-
-
-blocked_by_nathan:
-  user: blocked_by_nathan
-  friend: blocked_friend
-  state: 'blocked'
